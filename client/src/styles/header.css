@@ -2,7 +2,7 @@
     border: 1px solid #FFFFFF;
 }
 
-.main-container header{
+.main-container #main-header{
 height: 70px;
 border: 1px solid grey;
 display: flex;

@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { EachProposal } from "./EachProposal";
+import { NewProposal } from "./NewProposal";
 
 export function VendorProposals() {
+    const [create, setCreate] = useState(false);
     return <>
     <div className="vendor-proposals-container">
         <header id="vendors-header">
@@ -18,7 +20,7 @@ export function VendorProposals() {
                 <div className="img-container">
                 <img src={require("../../images/1608702_filter_icon (1).svg").default} />
                 </div>
-                <button>CREATE</button>
+                <button onClick={() => setCreate(true)}>CREATE</button>
             </section>
         </header>
         <EachProposal />
@@ -27,6 +29,6 @@ export function VendorProposals() {
         <EachProposal />
        
     </div>
-    
+    {create && <NewProposal setCreate = {setCreate} />}
     </>
 }

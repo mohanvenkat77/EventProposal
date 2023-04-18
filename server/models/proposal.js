@@ -50,4 +50,6 @@ const proposalSchema = new mongoose.Schema(
   { timestamp: true }
 );
 
-module.exports = mongoose.model("Proposal", proposalSchema);
+const Proposal = mongoose.model("proposals", proposalSchema);
+
+module.exports = Proposal;

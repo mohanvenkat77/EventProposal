@@ -3,7 +3,7 @@
     height: 100vh;
     background: rgba(0, 0, 0, .8);
     position: fixed;
-    top: 70px;
+    top: 0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -11,7 +11,6 @@
 
 .proposal-form-container form {
     width: 1140px;
-    min-height: 750px;
     background: white;
     border-radius: 12px;
     position: relative;
@@ -46,7 +45,6 @@
     padding-left: 60px;
     padding-right: 45px;
     border-right: 1px solid #E5E0E0;
-    margin-bottom: 20px;
 }
 
 .proposal-form-container form .left-section .name-field {
@@ -60,7 +58,6 @@
 }
 
 .proposal-form-container form .left-section .name-field input {
-    margin-bottom: 25px;
     width: 100%;
     height: 40px;
     border: 1px solid #CCCCCC;
@@ -86,7 +83,8 @@
     display: block;
 }
 
-.proposal-form-container form .left-section .type-field .type input {
+.proposal-form-container form .left-section .type-field .type input,
+.proposal-form-container form .left-section .type-field .type select{
     width: 190px;
     height: 40px;
     border: 1px solid #CCCCCC;
@@ -145,12 +143,10 @@
 }
 
 .proposal-form-container form .button-field {
+    margin-top: 20px;
     width: 100%;
-    height: 80px;
-    border-top: 1px solid #707070;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    border-top: 1px solid #CCCCCC;
+    text-align: center;
 }
 
 .proposal-form-container form .button-field button {
@@ -162,10 +158,17 @@
     color: white;
     font-size: 18px;
     font-weight: bold;
+    margin: 15px 0;
+}
+
+.proposal-form-container form .button-field button:hover,
+.proposal-form-container form .button-field button:focus {
+    box-shadow: 0 0 10px navy;
 }
 
 .proposal-form-container form .right-section {
     padding: 0 30px;
+    max-width: 570px;
     flex-grow: 1;
 }
 
@@ -180,17 +183,24 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 10px;
+    position: relative;
 }
 
-.proposal-form-container form .right-section .img-field .label-field button {
+.proposal-form-container form .right-section .img-field .label-field input {
+    height: 30px;
+    width: 75px;
+    display: none;
+}
+
+.proposal-form-container form .right-section .img-field .label-field #img-btn {
     padding: 5px 20px;
     background: none;
-    outline: none;
     font-size: 18px;
     font-weight: 600;
     color: #006BD9;
     border: 1px solid #0078DD;
     border-radius: 4px;
+    cursor: pointer;
 }
 
 .proposal-form-container form .right-section .img-field .img-grid {
@@ -202,4 +212,76 @@
 
 .proposal-form-container form .right-section .img-field .img-grid .img-container {
     background: #FAFAFA;
+    overflow: hidden;
+}
+
+.proposal-form-container form .right-section .img-field .img-grid .img-container img {
+    width: 100%;
+}
+
+.loader {
+    display: inline-block;
+    height: 18px;
+    width: 18px;
+    border: 1px solid gray;
+    border-top: 1px solid white;
+    border-radius: 50%;
+    animation: authLoader 2s infinite linear;
+}
+
+@keyframes authLoader {
+    from {transform: rotate(0);}
+    to {transform: rotate(360deg);}
+}
+
+@media screen and (max-width : 1600px) {
+    .proposal-form-container form h1 {
+        margin-bottom: 10px;
+    }
+
+    .proposal-form-container form .left-section .name-field {
+        margin-bottom: 15px;
+    }
+
+    .proposal-form-container form .left-section .name-field label {
+        margin-bottom: 5px;
+    }
+
+    .proposal-form-container form .left-section .type-field {
+        margin-bottom: 15px;
+    }
+
+    .proposal-form-container form .left-section .type-field .type label {
+        margin-bottom: 5px;
+    }
+
+    .proposal-form-container form .left-section .type-field .type span {
+        top: 35px;
+    }
+
+    .proposal-form-container form .right-section .food-preference-field {
+        margin-bottom: 15px;
+    }
+
+    .proposal-form-container form .left-section .description-field label,
+    .proposal-form-container form .right-section .food-preference-field label,
+    .proposal-form-container form .right-section .events-field label {
+        margin-bottom: 5px;
+    }
+
+    .proposal-form-container form .button-field {
+        margin-top: 10px;
+    }
+
+    .proposal-form-container form .button-field button {
+        padding: 10px 40px;
+    }
+
+    .proposal-form-container form .right-section .img-field {
+        margin-bottom: 15px;
+    }
+
+    .proposal-form-container form .right-section .img-field .label-field {
+        margin-bottom: 5px;
+    }
 }

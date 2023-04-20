@@ -8,7 +8,7 @@ export function AppRouter() {
     return <>
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<VendorSignIn/>}/>
+                {/* <Route path="/" element={<VendorSignIn/>}/> */}
                 <Route path="/vendor" element={<Header />}>
                     <Route path="proposals" element={<VendorProposals />} />
 

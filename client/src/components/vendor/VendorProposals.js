@@ -1,9 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { EachProposal } from "./EachProposal";
 import { NewProposal } from "./NewProposal";
+import { allProposalByVendor_api } from "../../utills/api-utill";
 
 export function VendorProposals() {
     const [create, setCreate] = useState(false);
+    const [proposals, setProposals] = useState([]);
+    let summa = [1,2,3];
+    useEffect(() => {
+        allProposalByVendor_api("sabeerForDefault") 
+        .then(res => {
+            if(res.status === "Success") setProposals(res.proposals);
+            else alert(res.message);
+        })
+    }, [])
     return <>
     <div className="vendor-proposals-container">
         <header id="vendors-header">
@@ -23,12 +33,17 @@ export function VendorProposals() {
                 <button onClick={() => setCreate(true)}>CREATE</button>
             </section>
         </header>
-        <EachProposal />
-        <EachProposal />
-        <EachProposal />
-        <EachProposal />
-       
+
+        {
+            proposals.map(proposal => {
+                return <EachProposal key={proposal._id} proposal={proposal} onDelete ={ (id) => {
+                    setProposals(proposals.filter(({_id}) => {
+                        return id !== _id ;
+                    }))
+                }}/>
+            })
+        }
     </div>
-    {create && <NewProposal setCreate = {setCreate} />}
+    {create && <NewProposal setCreate = {setCreate} onAdd={(data) => setProposals([...proposals, data])} />}
     </>
 }

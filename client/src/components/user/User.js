@@ -3,6 +3,13 @@ import CardList from './CardList'
 
 // import party2 from "./images/party2x.jpg"
 const User = () => {
+
+
+// useEffect(() => {
+//   const token=localStorage.getItem("token")
+// const user=
+// }, [])
+
     const [items,setitems]=useState([
         {
             id:1,

@@ -21,7 +21,8 @@ const userSchema = new mongoose.Schema(
     },
     selected:{
       type:[String],
-      required:true
+      required:true,
+      default:[]
     },
     isUser: {
       type: Boolean,

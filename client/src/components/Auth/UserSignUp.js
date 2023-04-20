@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 // import "./VendorSignUp.css";
 // import "./UserSignIn.css";
-// import axios from "axios";
-
+import axios from "axios";
+import jwtdecode from "jwt-decode";
 const UserSignUp = (props) => {
     const [data, setData] = useState({});
     const [msg, setErrormsg] = useState("");
     const [msg1, setErrormsg1] = useState("");
-
+    const [isUser, setIsuser] = useState(true);
+    const [token, settoken] = useState();
     const handleSignUp = (e) => {
         e.preventDefault();
         props.onSignUpSuccess();
@@ -21,6 +22,18 @@ const UserSignUp = (props) => {
         if (data.password !== data.confirmPassword) {
             setErrormsg("Password and Confirm Password no match");
         }
+        const res = axios
+        .post("http://localhost:5000/register", {
+          name: data.name,
+          email: data.email,
+          contact: data.contact,
+          password: data.password,
+          isUser: isUser,
+        })
+        .then((res) => settoken(res.data))
+        .catch((err) => console.log(err));
+        const user=jwtdecode(token)
+        console.log(user);
     }
 
     return (

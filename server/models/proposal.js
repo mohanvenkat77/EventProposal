@@ -37,6 +37,7 @@ const proposalSchema = new mongoose.Schema(
     images: {
       type: [String],
       required: true,
+      default : []
     },
     foodPreferences: {
       type: String,
@@ -46,6 +47,11 @@ const proposalSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    vendorId : {
+      type : String,
+      ref : "vendor",
+      required : true
+    }
   },
   { timestamp: true }
 );

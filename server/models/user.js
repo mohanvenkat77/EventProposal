@@ -19,6 +19,10 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    selected:{
+      type:[String],
+      required:true
+    },
     isUser: {
       type: Boolean,
       default: false,

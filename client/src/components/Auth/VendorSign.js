@@ -5,12 +5,14 @@ import VendorSignUp from "./VendorSignUp";
 // import UserSignIn from "./UserSignIn";
 import UserSignIn from "./UserSignIn";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
-
+import axios from "axios";
+import jwtdecode from "jwt-decode";
 const VendorSignIn = () => {
     const [type, setType] = useState("password");
     const [hide, setHide] = useState({ display: "none" });
     const [show, setShow] = useState({ display: "block" });
     const [data, setData] = useState({});
+    const [token,setToken]=useState()
     const [showCreateAccountForm, setShowCreateAccountForm] = useState(false);
       const [msg, setErrormsg] = useState("");
     function handleview(action) {
@@ -36,6 +38,8 @@ const VendorSignIn = () => {
         if (!data.contact || !data.password) {
             return alert("Kindly Fill all the details");
         }
+        console.log("hiii");
+       const resu= axios.post("http://localhost:5000/login",{email:data.contact,password:data.password}).then((res)=>setToken(res)).catch((err)=> console.log(err))
 
     }
     return (

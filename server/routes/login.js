@@ -15,7 +15,8 @@ router.post('/login',async (req,res)=>{
     if(!user) return res.status(400).send("User not exits")
     const isvalid=await bcypt.compare(req.body.password,user.password)
     if(!isvalid) return res.status(400).send("Invalid email or password....")
-    const token=jwtAuthToken(user)
+    const token= jwtAuthToken(user)
+    console.log(token)
     res.send(token)
  } catch (error) {
     console.log(error)

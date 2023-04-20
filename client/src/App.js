@@ -13,12 +13,12 @@ import { Header } from './components/Header'
 import User from './components/user/User';
 import EventInfo from './components/user/EventInfo';
 
+
 const App = () => {
   return <>
-  <Header />
-  {/* <User/> */}
-  <EventInfo/>
+
   </>
 }
+
 
 export default App

@@ -1,13 +1,16 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
-const register=require('./routes/register')
-const login=require('./routes/login')
-app.use(express.json());
+const register = require('./routes/register')
+const login = require('./routes/login')
+const proposalRouter = require("./routes/proposalRouter");
+
 app.use(cors());
-app.use('/',register)
-app.use('/',login)
-app.get("/",(req,res)=>{
-    res.send("jiiii")
-})
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
+app.use('/', register)
+app.use('/', login)
+app.use("/proposal", proposalRouter);
+
 module.exports = app;

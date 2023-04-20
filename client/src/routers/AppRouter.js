@@ -20,25 +20,29 @@ import "../styles/venue.css";
 import EventInfo from "../components/user/EventInfo";
 
 export function AppRouter() {
-  return (
-    <>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<VendorSignIn />} />
-          <Route path="/vendor" element={<Header />}>
-            <Route path="proposals" element={<VendorProposals />} />
-          </Route>
-          <Route
+
+       
+
+    return <>
+        <BrowserRouter>
+            <Routes>
+                {/* <Route path="/" element={<VendorSignIn/>}/> */}
+                <Route path="/vendor" element={<Header />}>
+                    <Route path="proposals" element={<VendorProposals />} />
+
+                </Route>
+                  <Route
             path="/user"
             element={<PrivateRouter child={<User />}></PrivateRouter>}
           />
-
-          <Route
+               <Route
             path="/user/:id"
             element={<PrivateRouter child={<EventInfo />}></PrivateRouter>}
           />
         </Routes>
-      </BrowserRouter>
+            </Routes>
+            
+        </BrowserRouter>
     </>
   );
 }

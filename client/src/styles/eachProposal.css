@@ -61,3 +61,10 @@
     margin-right: 30px;
     cursor: pointer;
 }
+
+@media screen and (max-width : 1600px) {
+    .eachProposal-container {
+        width: 80%;
+       
+    }
+}

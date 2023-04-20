@@ -8,7 +8,6 @@
 
 .vendor-proposals-container #vendors-header {
     width: 1480px;
-
     padding: 15px 0;
     display: flex;
     justify-content: space-between;
@@ -75,4 +74,10 @@
     margin-left: 25px;
     border-radius: 8px;
     cursor: pointer;
+}
+
+@media screen and (max-width : 1600px)  {
+    .vendor-proposals-container #vendors-header {
+        width: 80%;
+    }
 }

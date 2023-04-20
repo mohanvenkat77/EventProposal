@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./UserSignIn.css";
+// import "./UserSignIn.css";
 import UserSignUp from "./UserSignUp";
 // import axios from "axios";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
@@ -58,7 +58,7 @@ const UserSignIn = () => {
                             id="vendor-password"
                             onChange={(e) => setData({ ...data, password: e.target.value }, setErrormsg(""))}
                         />
-                        <span className="icon-span">
+                        <span className="icon-span-u">
                             <AiFillEyeInvisible
                                 style={hide}
                                 className="eye"

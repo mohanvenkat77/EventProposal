@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import "./VendorSignUp.css";
-import "./UserSignIn.css";
+// import "./VendorSignUp.css";
+// import "./UserSignIn.css";
 // import axios from "axios";
 
 const UserSignUp = (props) => {

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./VendorSignUp.css";
+// import "./VendorSignUp.css";
 // import axios from "axios";
 
 const VendorSignUp = (props) => {

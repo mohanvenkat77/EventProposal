@@ -1,28 +1,18 @@
 import React from 'react'
-// import "./styles/app.css";
-// import "./styles/header.css";
-// import "./styles/VendorSignIn.css";
-import VendorSignIn from './components/VendorSign';
-import {BrowserRouter,Routes,Route} from "react-router-dom"
-// import { Header } from './components/Header'
-// import VendorSignIn from './components/VendorSign';
+import "./styles/app.css";
+import "./styles/header.css";
+import "./styles/vendorProposal.css";
+import "./styles/eachProposal.css";
+import "./styles/newProposal.css";
+import "./styles/VendorSignUp.css";
+import "./styles/VendorSignIn.css";
+import "./styles/UserSignIn.css"
+import { AppRouter } from './routers/AppRouter';
 
 const App = () => {
-//   return <>
-//   {/* <Header /> */}
-//   </>
-// }
-
-// export default App
-return (
-  <div>
-    <BrowserRouter>
-      <Routes>
-          <Route path="/" element={<VendorSignIn/>}/>
-      </Routes>
-    </BrowserRouter>
-  </div>
-  );
+  return <>
+  <AppRouter />
+  </>
 }
 
 export default App;

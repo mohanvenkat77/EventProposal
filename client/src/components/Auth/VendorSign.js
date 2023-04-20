@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import "./VendorSignIn.css";
+// import "./VendorSignIn.css";
 import VendorSignUp from "./VendorSignUp";
 // import axios from "axios";
+// import UserSignIn from "./UserSignIn";
 import UserSignIn from "./UserSignIn";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
@@ -42,7 +43,7 @@ const VendorSignIn = () => {
             <h2 id="main-logo">LOGO</h2>
             <div id="container">
                 <div id="sub-container-1">
-                    <h1 id="side-heading">TEXT WILL BE DIPLAYED HERE</h1>
+                    <h1 id="side-heading">TEXT WILL BE DISPLAYED HERE</h1>
                 </div>
                 <div id="sub-container-2">
                     <div className="container1">

@@ -8,14 +8,10 @@ const register = async (req, res) => {
   const { name, contact, email, password, selected, isUser, isVendor } =
     req.body;
   try {
-    if (err) {
-      return res.status(400).send(err.error.details[0].message);
-    }
     let user = await User.findOne({ email });
     if (user) {
-      return res.status(400).send("user already exits");
+      return res.status(400).json({status:"Failed",message:"user already exits"});
     }
-
     const newdata = new User({
       name,
       contact,
@@ -28,9 +24,12 @@ const register = async (req, res) => {
     const salt = await bcypt.genSalt(10);
     newdata.password = await bcypt.hash(newdata.password, salt);
     const token = jwtAuthToken(newdata);
-    res.status(200).json({"token":token});
     await newdata.save();
+ 
+    res.status(200).json({status:"Success",token});
   } catch (error) {
+    console.log(error);
+    
     res.status(400).json({status:"failed",message:error.details});
   }
 };
@@ -40,14 +39,14 @@ const register = async (req, res) => {
 const login=async (req,res)=>{
   try {
      let user=await User.findOne({email:req.body.email})
-     if(!user) return res.status(400).send("User not exits")
+     if(!user) return res.status(400).json({status:"Failed",message:"User not exits"})
      const isvalid=await bcypt.compare(req.body.password,user.password)
      if(!isvalid) return res.status(400).send("Invalid email or password....")
      const token= jwtAuthToken(user)
      console.log(token)
      res.send(token)
   } catch (error) {
-     console.log(error)
+    res.status(400).json({status:"failed",message:error.details});
   }
  }
 

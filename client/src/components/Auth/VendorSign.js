@@ -52,10 +52,10 @@ const VendorSignIn = () => {
             setView("block")
             return setErr("Enter valid Email")
         }
-        if(!data.password<8){
-            setView("block")
-            return setErr("Passworg length atleast 8 characters")
-        }
+        // if(!data.password<8){
+        //     setView("block")
+        //     return setErr("Passworg length atleast 8 characters")
+        // }
        
        const resu= axios.post("http://localhost:5000/login",{email:data.contact,password:data.password}).then((res)=>{
         console.log("token is");

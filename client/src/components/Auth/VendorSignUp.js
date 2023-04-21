@@ -10,26 +10,30 @@ const VendorSignUp = (props) => {
   const [msg1, setErrormsg1] = useState("");
   const [isVendor, setIsvendor] = useState(true);
   const [err, setErr] = useState("");
-  const [view,setView]=useState("block")
+  const [view,setView]=useState("none")
   const [token, settoken] = useState();
+
+
+
   const handleSignUp = (e) => {
     e.preventDefault();
   };
   function handleSubmit(e) {
     e.preventDefault();
-    if (!data.contact || !data.name || !data.email || !data.password) {
+    console.log(data);
+    if (!data.contact || !data.vendorName || !data.email || !data.password) {
       setView("block")
-      setErr("Kindly Fill all the details");
+      return setErr("Kindly Fill all the details");
     }
     if(!data.email?.endsWith("@gmail.com")){
       setView("block")
       return setErr("Enter valid Email")
   }
-  if(!data.password<8){
+  if(data.password<8){
       setView("block")
       return setErr("Passworg length atleast 8 characters")
   }
-  if(!data.contact<10){
+  if(data.contact<10){
     setView("block")
     return setErr("Enter valid contact Number")
 }
@@ -46,13 +50,11 @@ const VendorSignUp = (props) => {
         isVendor: isVendor,
       })
       .then((res) => {
-        settoken(res.data);
-        localStorage.setItem("token", res.data);
+        localStorage.setItem("token", res.data.token);
+        console.log(res.data);
         navigate("/vendor/proposals")
       })
       .catch((err) => console.log(err));
-    const user = jwtdecode(token);
-    console.log(user);
   }
 
   return (

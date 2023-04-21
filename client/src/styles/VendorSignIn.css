@@ -47,6 +47,7 @@ body {
 
 #container {
   position: relative;
+
 }
 
 #vendor-password-2 {
@@ -67,7 +68,7 @@ body {
 #sub-container-2 {
   position: absolute;
   top: 80px;
-  left: 1000px;
+  left: 800px;
   width: 450px;
   height: 450px;
   border-radius: 8px;
@@ -191,6 +192,7 @@ body {
   overflow: hidden;
   width: 400px;
   height: 400px;
+
 }
 
 .box.expanded {

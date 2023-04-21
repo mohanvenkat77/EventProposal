@@ -17,33 +17,27 @@ import "../styles/header.css";
 import "../styles/newProposal.css";
 import "../styles/user.css";
 import "../styles/venue.css";
+import "../styles/HeaderCard.css";
 import EventInfo from "../components/user/EventInfo";
 import PrivateVendor from "../components/Private/PrivateVendor";
 
 export function AppRouter() {
   return (
     <>
-      <HashRouter>
+      <BrowserRouter>
         <Routes>
-          <Route path="/" element={<VendorSignIn/>}/>
-          
-          <Route path="/vendor" element={
-            <PrivateVendor child={<Header/>}></PrivateVendor>
-          }>
+          <Route path="/" element={<VendorSignIn />} />
+
+          <Route path="/vendor" element={<Header />}>
             <Route path="proposals" element={<VendorProposals />} />
           </Route>
 
-
-          <Route
-            path="/user"
-            element={<PrivateRouter child={<User />}></PrivateRouter>}
-          />
-          <Route
-            path="/user/:id"
-            element={<PrivateRouter child={<EventInfo />}></PrivateRouter>}
-          />
+          <Route path="/user" element={<Header />}>
+            <Route path="proposals" element={<User />} />
+          </Route>
+          <Route path="/user/:id" element={<EventInfo />} />
         </Routes>
-      </HashRouter>
+      </BrowserRouter>
     </>
   );
 }

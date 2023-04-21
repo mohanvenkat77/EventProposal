@@ -51,10 +51,10 @@ const UserSignIn = () => {
       setView("block")
       return setErr("Enter valid Email")
   }
-  if(!data.password<8){
-      setView("block")
-      return setErr("Passworg length atleast 8 characters")
-  }
+  // if(!data.password<8){
+  //     setView("block")
+  //     return setErr("Passworg length atleast 8 characters")
+  // }
 
     console.log("hiii");
     axios
@@ -67,7 +67,7 @@ const UserSignIn = () => {
         setToken(res.data);
         console.log(res.data);
         localStorage.setItem("token", res.data);
-        navigate("/user");
+        navigate("/user/proposals");
       })
       .catch((err) => console.log(err));
   }

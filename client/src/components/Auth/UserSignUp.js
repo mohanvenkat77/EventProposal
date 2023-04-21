@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 const UserSignUp = (props) => {
     const navigate=useNavigate()
   const [data, setData] = useState({});
-  const [view,setView]=useState("block")
+  const [view,setView]=useState("none")
   const [err, setErr] = useState("");
   const [msg1, setErrormsg1] = useState("");
   const [isUser, setIsuser] = useState(true);
@@ -27,11 +27,11 @@ const UserSignUp = (props) => {
       setView("block")
       return setErr("Enter valid Email")
   }
-  if(!data.password<8){
+  if(data.password<8){
       setView("block")
       return setErr("Passworg length atleast 8 characters")
   }
-  if(!data.contact<10){
+  if(data.contact<10){
     setView("block")
     return setErr("Enter valid contact Number")
 }
@@ -39,7 +39,7 @@ const UserSignUp = (props) => {
       setView("block")
       return setErr("Password and Confirm Password no match");
     }
-    const res = axios
+     axios
       .post("http://localhost:5000/register", {
         name: data.name,
         email: data.email,
@@ -48,9 +48,13 @@ const UserSignUp = (props) => {
         isUser: isUser,
       })
       .then((res) => {
-        settoken(res.data);
-        localStorage.setItem("token", res.data);
-        navigate("/user");
+        if(res.data.status==="Success") {
+        settoken(res.data.token);
+        localStorage.setItem("token", res.data.token);
+        navigate("/user/proposals");}
+        else{
+          alert(res.data.message)
+        }
       })
       .catch((err) => console.log(err));
   }
@@ -58,8 +62,6 @@ const UserSignUp = (props) => {
   return (
     <div className="box1">
       <h4 id="SignUp-Heading">Register in your Account</h4>
-      <span id="errMsg-12">{err}</span>
-      <span id="errmessage11">{msg1}</span>
       <form id="form">
         <input
           type="text"

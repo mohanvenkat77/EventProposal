@@ -11,6 +11,7 @@
 
 .proposal-form-container form {
     width: 1140px;
+    /* min-width: 1140px; */
     background: white;
     border-radius: 12px;
     position: relative;

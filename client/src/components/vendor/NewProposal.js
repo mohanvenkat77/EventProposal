@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { newProposal_api } from "../../utills/api-utill";
+import React, { useEffect, useState } from "react";
+import { editProposal_api, newProposal_api } from "../../utills/api-utill";
 
-export function NewProposal({ setCreate, onAdd }) {
+export function NewProposal({ setCreate, onAdd, onUpdate, edit, onEdit }) {
 
     const [formData, setFormData] = useState({
         eventName: "",
@@ -15,6 +15,9 @@ export function NewProposal({ setCreate, onAdd }) {
         foodPreferences: "",
         events: ""
     });
+    useEffect(() => {
+        if (edit) setFormData({ ...edit });
+    }, []);
     const [boo, setBoo] = useState(true);
     const [imgArray, setImgArray] = useState([]);
 
@@ -30,22 +33,39 @@ export function NewProposal({ setCreate, onAdd }) {
         setBoo(false);
         let result = new FormData(e.target);
         result.append("vendorId", "sabeerForDefault")
-        newProposal_api(result)
-            .then(res => {
-                onAdd(res.proposal);
-                setCreate(false);
-                setBoo(true);
-            })
-            .catch(err => {
-                setBoo(true);
-                alert("Error occured, Please try again!");
-            })
+        if (!edit) {
+            newProposal_api(result)
+                .then(res => {
+                    onAdd(res.proposal);
+                    setCreate(false);
+                    setBoo(true);
+                })
+                .catch(err => {
+                    setBoo(true);
+                    alert("Error occured, Please try again!");
+                })
+        } else {
+            editProposal_api(result, edit._id)
+                .then(res => {
+                    onUpdate(res.proposal);
+                    onEdit(null);
+                    setCreate(false);
+                    setBoo(true);
+                })
+                .catch(err => {
+                    setBoo(true);
+                    alert("Error occured, Please try again!");
+                })
+        }
     }
 
     return <>
         <div className="proposal-form-container">
             <form onSubmit={formSubmission}>
-                <span id="cross" onClick={() => setCreate(false)}><ion-icon name="close-outline"></ion-icon></span>
+                <span id="cross" onClick={() => {
+                    setCreate(false);
+                    onEdit(null);
+                }}><ion-icon name="close-outline"></ion-icon></span>
                 <h1>Create Proposal</h1>
                 <div className="section-container" >
                     <div className="left-section">
@@ -58,7 +78,7 @@ export function NewProposal({ setCreate, onAdd }) {
                                 <label htmlFor="place">Place of Event</label>
                                 <select id="place" name="placeOfEvent" value={formData.placeOfEvent} onChange={(e) => setFormData(ex => ({ ...ex, placeOfEvent: e.target.value }))}>
                                     <option value={"Select"} >Select</option>
-                                    <option value={"Chennai"} >Chennai</option>
+                                    <option value={"Tamilnadu"} >Chennai</option>
                                     <option value={"Bengaluru"} >Bengaluru</option>
                                     <option value={"Hydrabad"} >Hydrabad</option>
                                     <option value={"Kerala"} >Kerala</option>
@@ -70,10 +90,10 @@ export function NewProposal({ setCreate, onAdd }) {
                                 <label htmlFor="proposalType">Proposal Type</label>
                                 <select id="proposalType" name="proposalType" value={formData.proposalType} onChange={(e) => setFormData(ex => ({ ...ex, proposalType: e.target.value }))}>
                                     <option value={"Select"} >Select</option>
-                                    <option value={"Venue"} >Venue</option>
-                                    <option value={"Venue"} >Venue</option>
-                                    <option value={"Venue"} >Venue</option>
-                                    <option value={"Venue"} >Venue</option>
+                                    <option value={"Formal"} >Formal</option>
+                                    <option value={"In-Formal"} >In-Formal</option>
+                                    <option value={"Internal"} >Internal</option>
+                                    <option value={"External"} >External</option>
                                 </select>
                                 {/* <input type="text" id="proposalType" name="proposalType" placeholder="Select" required />
                                 <span><ion-icon name="chevron-down-outline"></ion-icon></span> */}
@@ -89,10 +109,12 @@ export function NewProposal({ setCreate, onAdd }) {
                                 <label htmlFor="eventType">Event Type</label>
                                 <select id="eventType" name="eventType" value={formData.eventType} onChange={(e) => setFormData(ex => ({ ...ex, eventType: e.target.value }))}>
                                     <option value={"Select"} >Select</option>
+                                    <option value={"Wedding"} >Wedding</option>
                                     <option value={"Birthday"} >Birthday</option>
-                                    <option value={"Marriage"} >Marriage</option>
                                     <option value={"Reception"} >Reception</option>
-                                    <option value={"Cermony"} >Cermony</option>
+                                    <option value={"Charity"} >Charity</option>
+                                    <option value={"Party"} >Party</option>
+                                    <option value={"Product launch"} >Product launch</option>
                                 </select>
                             </div>
                             <div className="type">
@@ -146,7 +168,7 @@ export function NewProposal({ setCreate, onAdd }) {
                     </div>
                 </div>
                 <div className="button-field">
-                    <button type="submit">{boo ? "ADD" : <span className="loader"></span>}</button>
+                    <button type="submit">{boo ? (edit? "Edit" : "ADD") : <span className="loader"></span>}</button>
                 </div>
 
             </form>

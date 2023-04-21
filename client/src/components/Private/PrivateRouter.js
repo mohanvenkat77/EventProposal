@@ -9,8 +9,9 @@ const PrivateRouter = ({child}) => {
     const user=jwtDecode(token)
     console.log(user);
     const auth_id=user.user.id
+    const isuser=user.user.isUser
     console.log(auth_id);
-    return auth_id?child:navigate('/')
+    return auth_id && isuser===true ?child:navigate('/')
   
 }
 

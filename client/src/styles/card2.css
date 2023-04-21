@@ -4,7 +4,7 @@
     /* UI Properties */
     border-radius: 2px;
     opacity: 1;
-object-fit: cover;
+object-fit: fill;
 margin-bottom: 10px;
 }
 .card2-albums{

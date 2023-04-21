@@ -22,12 +22,10 @@ import EventInfo from "../components/user/EventInfo";
 import PrivateVendor from "../components/Private/PrivateVendor";
 
 export function AppRouter() {
-  return (
-    <>
+  return <>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<VendorSignIn />} />
-
           <Route path="/vendor" element={<Header />}>
             <Route path="proposals" element={<VendorProposals />} />
           </Route>
@@ -39,5 +37,4 @@ export function AppRouter() {
         </Routes>
       </BrowserRouter>
     </>
-  );
 }

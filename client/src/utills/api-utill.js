@@ -28,7 +28,18 @@ export function newProposal_api(data) {
         .catch(err => alert("FROM SERVER : " + err.message));
 }
 
-//TO GET ALL PROPOSALS (SPECIFIC)
+//
+export function editProposal_api(data, id) {
+
+    return fetch(`${BASE_URL}/proposal/${id}`, {
+        method: "PUT",
+        body: data
+    })
+        .then(res => res.json())
+        .catch(err => alert("FROM SERVER : " + err.message));
+}
+
+//TO DELETE THE PROPOSAL
 export function deleteProposalByVendor_api(id) {
 
     return fetch(`${BASE_URL}/proposal/${id}`, { method: "DELETE" })

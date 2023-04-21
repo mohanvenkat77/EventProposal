@@ -1,5 +1,6 @@
 .vendor-proposals-container {
     margin-top: 40px;
+    min-width: 1200px;
     display: flex;
     flex-flow: column wrap;
     justify-content: center;
@@ -33,7 +34,6 @@
     border: none;
     outline: none;
     align-self: end;
-    color: #C7C7C7;
 }
 
 .vendor-proposals-container #vendors-header .left-section .img-container {
@@ -58,6 +58,45 @@
     cursor: pointer;
 }
 
+.vendor-proposals-container #vendors-header .right-section#filter {
+    position: relative;
+}
+
+.vendor-proposals-container #vendors-header .right-section ul {
+    position: absolute;
+    background-color: #4E94F4;
+    padding: 10px;
+    color: white;
+    top: 50px;
+    left: -110px;
+    /* right: 50%; */
+    list-style: none;
+}
+
+.vendor-proposals-container #vendors-header .right-section ul::before {
+    background-color: #4E94F4;
+    content: "";
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    transform: rotate(45deg);
+    top: -7px;
+    right: 6px;
+}
+
+.vendor-proposals-container #vendors-header .right-section ul li {
+    margin-bottom: 5px;
+}
+
+.vendor-proposals-container #vendors-header .right-section ul li input {
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.vendor-proposals-container #vendors-header .right-section ul li label{
+    cursor: pointer;
+}
+
 .vendor-proposals-container #vendors-header .right-section .img-container img {
     height: 100%;
     width: 100%;
@@ -76,7 +115,7 @@
     cursor: pointer;
 }
 
-@media screen and (max-width : 1600px)  {
+@media screen and (max-width : 1600px) {
     .vendor-proposals-container #vendors-header {
         width: 80%;
     }

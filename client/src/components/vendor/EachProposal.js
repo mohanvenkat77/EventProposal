@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { deleteProposalByVendor_api } from "../../utills/api-utill";
 
-export function EachProposal({ proposal, onDelete }) {
+export function EachProposal({ proposal, onDelete, onEdit, setCreate }) {
     const { eventName, placeOfEvent, proposalType, eventType, budget, From, To, _id, foodPreferences, events, description } = proposal;
+    const [confirmDelete, setConfirmDelete] = useState(false);
     return <>
         <div className="eachProposal-container">
             <section className="top-section">
@@ -33,20 +34,35 @@ export function EachProposal({ proposal, onDelete }) {
                     </div>
                 </section>
                 <section className="feature">
-                    <div className="img-container">
+                    <div className="img-container" onClick={() => {
+                        onEdit(proposal);
+                        setCreate(true);
+                    }}>
                         <img src={require("../../images/pencil-edit-button.svg").default} />
                     </div>
                     <div className="img-container" onClick={() => {
-                        deleteProposalByVendor_api(_id)
-                        .then(res => {
-                            if(res.status === "Success") onDelete(_id);
-                            else {
-                                console.log(res.message)
-                                alert("Error occured, Please try again!")}
-                        })
-                    } }>
+                        setConfirmDelete(true)
+                    }}>
                         <img src={require("../../images/bin.svg").default} />
                     </div>
+                    {confirmDelete && <div className="delete-confirmation" >
+                        <p>Are you sure!<br /> Do you want to delete?</p>
+                        <div className="btns">
+                            <button onClick={() => {
+                                deleteProposalByVendor_api(_id)
+                                    .then(res => {
+                                        if (res.status === "Success") onDelete(_id);
+                                        else {
+                                            console.log(res.message)
+                                            alert("Error occured, Please try again!")
+                                        }
+                                    })
+                            }}>YES</button>
+                            <button onClick={() => {
+                                setConfirmDelete(false)
+                            }}>NO</button>
+                        </div>
+                    </div>}
                 </section>
             </section>
         </div>

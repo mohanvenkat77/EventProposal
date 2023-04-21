@@ -17,7 +17,7 @@ opacity: 1;
 .card1-img{
     height: 173px;
     width: 350px;
-    object-fit: cover;
+    object-fit:fill;
     border-radius: 8px 8px 0px 0px;
 }
 .card1-id{

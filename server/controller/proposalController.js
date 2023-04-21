@@ -9,9 +9,24 @@ const mongoClient = new MongoClient(process.env.DB_URL);
 const getAllProposals = async (req, res) => {
     try {
         let proposals = await Proposal.find();
+        console.log("get all proposals");
         res.status(200).json({ status: "Success", proposals });
     } catch (err) {
         res.status(400).json({ status: "Failed", message: err.message });
+    }
+}
+
+const getSingleProposal=async(req,res)=>{
+    let {id}=req.params
+    try {
+        console.log("single proposal")
+        console.log(id);
+        let proposal=await Proposal.findById(id)
+        console.log(proposal);
+        console.log(proposal);
+        res.status(200).json({status:"Sucess",proposal})
+    } catch (err) {
+        res.status(400).json({status:"Failed",message:err.message})
     }
 }
 
@@ -87,4 +102,4 @@ const deleteProposal = async (req, res) => {
     }
 }
 
-module.exports = { getAllProposals, getVendorProposals, addNewProposal, deleteProposal };
+module.exports = { getAllProposals, getVendorProposals, getSingleProposal,addNewProposal, deleteProposal,renderImage };

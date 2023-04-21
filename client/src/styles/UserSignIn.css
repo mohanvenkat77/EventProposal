@@ -115,6 +115,7 @@
     font-size: 15px;
     border-radius: 8px;
     cursor: pointer;
+
   }
   /* .icon-span {
     font-size: 25px;
@@ -126,3 +127,11 @@
 
 
 } */
+
+.err-msg-2{
+  position: absolute;
+
+  color:red;
+  margin-top: 260px;
+  height: 25px;
+}

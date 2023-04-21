@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import CardList from './CardList'
-
+import axios from 'axios';
 // import party2 from "./images/party2x.jpg"
 const User = () => {
 
@@ -10,113 +10,15 @@ const User = () => {
 // const user=
 // }, [])
 
-    const [items,setitems]=useState([
-        {
-            id:1,
-            imageSrc:'https://images6.fanpop.com/image/photos/39400000/Party-all-night-party-39454857-1920-1080.jpg',
-            title:'Bachelor Party',
-            price:'23,300',
-            locatioin:'Banglore'
-        },
-        {
-            id:2,
-            imageSrc:'https://images6.fanpop.com/image/photos/39400000/Party-all-night-party-39454857-1920-1080.jpg',
-            title:'Bachelor Party',
-            price:'23,300',
-            locatioin:'Banglore'
-        },
-        {
-            id:3,
-            imageSrc:'https://images6.fanpop.com/image/photos/39400000/Party-all-night-party-39454857-1920-1080.jpg',
-            title:'Bachelor Party',
-            price:'23,300',
-            locatioin:'Banglore'
-        },
-        {
-            id:4,
-            imageSrc:'https://images6.fanpop.com/image/photos/39400000/Party-all-night-party-39454857-1920-1080.jpg',
-            title:'Bachelor Party',
-            price:'23,300',
-            locatioin:'Banglore'
-        },
-        {
-            id:5,
-            imageSrc:'https://images6.fanpop.com/image/photos/39400000/Party-all-night-party-39454857-1920-1080.jpg',
-            title:'Bachelor Party',
-            price:'23,300',
-            locatioin:'Banglore'
-        },
-        {
-            id:6,
-            imageSrc:'https://images6.fanpop.com/image/photos/39400000/Party-all-night-party-39454857-1920-1080.jpg',
-            title:'Bachelor Party',
-            price:'23,300',
-            locatioin:'Banglore'
-        },
-        {
-            id:7,
-            imageSrc:'https://images6.fanpop.com/image/photos/39400000/Party-all-night-party-39454857-1920-1080.jpg',
-            title:'Bachelor Party',
-            price:'23,300',
-            locatioin:'Banglore'
-        },
-        {
-            id:8,
-            imageSrc:'https://images6.fanpop.com/image/photos/39400000/Party-all-night-party-39454857-1920-1080.jpg',
-            title:'Bachelor Party',
-            price:'23,300',
-            locatioin:'Banglore'
-        },
-        {
-            id:9,
-            imageSrc:'https://images6.fanpop.com/image/photos/39400000/Party-all-night-party-39454857-1920-1080.jpg',
-            title:'Bachelor Party',
-            price:'23,300',
-            locatioin:'Banglore'
-        },
-        {
-            id:10,
-            imageSrc:'https://images6.fanpop.com/image/photos/39400000/Party-all-night-party-39454857-1920-1080.jpg',
-            title:'Bachelor Party',
-            price:'23,300',
-            locatioin:'Banglore'
-        },
-        {
-            id:11,
-            imageSrc:'https://images6.fanpop.com/image/photos/39400000/Party-all-night-party-39454857-1920-1080.jpg',
-            title:'Bachelor Party',
-            price:'23,300',
-            locatioin:'Banglore'
-        },
-        {
-            id:12,
-            imageSrc:'https://images6.fanpop.com/image/photos/39400000/Party-all-night-party-39454857-1920-1080.jpg',
-            title:'Bachelor Party',
-            price:'23,300',
-            locatioin:'Banglore'
-        },
-        {
-            id:13,
-            imageSrc:'https://images6.fanpop.com/image/photos/39400000/Party-all-night-party-39454857-1920-1080.jpg',
-            title:'Bachelor Party',
-            price:'23,300',
-            locatioin:'Banglore'
-        },
-        {
-            id:14,
-            imageSrc:'https://images6.fanpop.com/image/photos/39400000/Party-all-night-party-39454857-1920-1080.jpg',
-            title:'Bachelor Party',
-            price:'23,300',
-            locatioin:'Banglore'
-        },
-            {
-            id:15,
-            imageSrc:'https://images6.fanpop.com/image/photos/39400000/Party-all-night-party-39454857-1920-1080.jpg',
-            title:'Bachelor Party',
-            price:'23,300',
-            locatioin:'Banglore'
-        }
-    ])
+    const [items,setitems]=useState()
+    useEffect(() => {
+      axios.get("http://localhost:5000/proposal").then((res) => {
+        setitems(res.data.proposals);
+      }).catch((err) => {
+        console.log(err);
+      });
+    }, [])
+    
   return (
     <div>
         <div >
@@ -126,7 +28,7 @@ const User = () => {
             <p>Proposals</p>
         </div>
       <div className='eventlists'>
-        <CardList items={items}/>
+       {items? <CardList items={items}/>:null}
       </div>
     </div>
   )

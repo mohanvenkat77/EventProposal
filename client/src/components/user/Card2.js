@@ -1,18 +1,19 @@
 import React from 'react'
 
 const Card2 = ({items}) => {
-    const { id,imageSrc,title,email,startDate,endDate,eventType,eventclass}=items[0]
+    const {images,eventName}=items
     console.log(items)
   return (
     <div>
     <div className='card2-text'>My albums</div>
     <div className='card2-albums'>
-        <img className='card2-img' src={imageSrc} alt={title}/>
-        <img className='card2-img' src={imageSrc} alt={title}/>
-        <img className='card2-img' src={imageSrc} alt={title}/>
-        <img className='card2-img' src={imageSrc} alt={title}/>
-          <img className='card2-img' src={imageSrc} alt={title}/>  
-          <img className='card2-img' src={imageSrc} alt={title}/>  
+       {
+        images.map((img)=>(
+          <>
+           <img className='card2-img' src={`http://localhost:5000/proposal/images/${img}`} alt={eventName}/>
+          </>
+        ))
+       }
     </div>
     </div>
   )

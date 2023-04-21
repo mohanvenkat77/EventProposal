@@ -3,7 +3,7 @@ const proposalFilter = (filters, proposals) => {
     formal, inFormal, internal, external} = filters;
     let arr = [];
     if(wedding || birthday || reception || charity || party || productLaunch ||
-        formal || inFormal || internal || external) {
+        formal || inFormal || internal || external || filters["0-25000"]) {
         if(wedding) {
             let temp = proposals.filter(({eventType}) => eventType === "Wedding");
             arr = [...arr,...temp];
@@ -44,6 +44,11 @@ const proposalFilter = (filters, proposals) => {
             let temp = proposals.filter(({proposalType}) => proposalType === "External");
             arr = [...arr,...temp];
         }
+        if(filters["0-25000"]) {
+            let temp = proposals.filter(({budget}) => budget >= 0 && budget <= 25000);
+            arr = [...arr,...temp];
+        }
+
         
         return arr;
     } else return false;

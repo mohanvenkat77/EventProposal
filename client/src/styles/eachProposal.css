@@ -98,6 +98,11 @@
     cursor: pointer;
 }
 
+.eachProposal-container .bottom-section .feature .delete-confirmation button:hover,
+.eachProposal-container .bottom-section .feature .delete-confirmation button:focus {
+    box-shadow: 0px 0px 10px #4E94F4;
+}
+
 .eachProposal-container .bottom-section .feature .delete-confirmation button:nth-child(1) {
     background-color: green;
 }

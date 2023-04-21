@@ -1,5 +1,6 @@
 require("dotenv").config();
 const router = require("express").Router();
+const deleteBeforeUpdate = require("../middleware/deleteBeforeUpdate");
 const { getAllProposals, getVendorProposals, addNewProposal, deleteProposal, renderImage, editProposal, getSingleProposal } = require("../controller/proposalController");
 const upload = require("../middleware/proposalImageStorage");
 // const multer = require("multer");
@@ -23,7 +24,7 @@ router.get("/", getAllProposals);
 router.get("/:id",getSingleProposal);
 router.get("/vendor/:id", getVendorProposals);
 router.post("/", upload.array("images", 10), addNewProposal);
-router.put("/:id", upload.array("images", 10), editProposal);
+router.put("/:id", upload.array("images", 10), deleteBeforeUpdate, editProposal);
 router.delete("/:id", deleteProposal);
 router.get("/images/:name", renderImage);
 

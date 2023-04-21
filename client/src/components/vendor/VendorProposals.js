@@ -27,6 +27,7 @@ export function VendorProposals() {
         inFormal : false,
         internal : false,
         external : false,
+        ["0-25000"] : false,
     });
 
     function getProposals() {
@@ -158,6 +159,21 @@ export function VendorProposals() {
                                 onFilter("external", e.target.checked);
                             }} />
                             <label htmlFor="externalFilter">External</label>
+                        </li>
+                        <li>Budget</li>
+                        <li>
+                            <input type="checkbox" id="0-25000Filter" onChange={(e) => {
+                                setFilters(ex => ({ ...ex, ["0-25000"]: e.target.checked }));
+                                onFilter("0-25000", e.target.checked);
+                            }} />
+                            <label htmlFor="0-25000Filter">0 - 25000</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="0-25000Filter" onChange={(e) => {
+                                setFilters(ex => ({ ...ex, ["0-25000"]: e.target.checked }));
+                                onFilter("0-25000", e.target.checked);
+                            }} />
+                            <label htmlFor="0-25000Filter">25001 - 50000</label>
                         </li>
                     </ul>}
                     <button onClick={() => setCreate(true)}>CREATE</button>

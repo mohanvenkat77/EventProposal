@@ -62,45 +62,50 @@ const renderImage = async (req, res) => {
 
 //TO EDIT THE PROPOSAL
 const editProposal = async (req, res) => {
-        try {
-            let proposal = await Proposal.findById(req.params.id)
-            if(!proposal) return res.status(404).json({status : "Failed", message : "Invalid Id"});
-            if(1) {
-                proposal = await Proposal.findByIdAndUpdate(req.params.id, req.body, {new : true});
-                res.status(200).json({status : "Success", proposal});
-            } else {
-                res.status(401).json({status : "Failed", message : "Unauthorized"});
-            }
-    
-        } catch (err) {
-            res.status(400).json({status : "Failed", message : err.message});
+    try {
+        let proposal = await Proposal.findById(req.params.id)
+        if (!proposal) return res.status(404).json({ status: "Failed", message: "Invalid Id" });
+        // if(1) {
+        if (req.files && req.files.length > 0) {
+            const arr = req.files.map(file => file.filename);
+            proposal = await Proposal.findByIdAndUpdate(req.params.id, {...req.body, images: [...arr] }, { new: true });
+        } else {
+            proposal = await Proposal.findByIdAndUpdate(req.params.id, req.body, { new: true });
         }
+        res.status(200).json({ status: "Success", proposal });
+        // } else {
+        //     res.status(401).json({status : "Failed", message : "Unauthorized"});
+        // }
+
+    } catch (err) {
+        res.status(400).json({ status: "Failed", message: err.message });
     }
+}
 
 //TO DELETE THE PROPOSAL
 const deleteProposal = async (req, res) => {
-        try {
-            await mongoClient.connect();
-            const db = mongoClient.db(process.env.DB_NAME);
-            const filesSchema = db.collection(process.env.DB_IMAGE_COLLECTION + ".files");
-            const chunksSchema = db.collection(process.env.DB_IMAGE_COLLECTION + ".chunks");
+    try {
+        await mongoClient.connect();
+        const db = mongoClient.db(process.env.DB_NAME);
+        const filesSchema = db.collection(process.env.DB_IMAGE_COLLECTION + ".files");
+        const chunksSchema = db.collection(process.env.DB_IMAGE_COLLECTION + ".chunks");
 
-            let post = await Proposal.findById(req.params.id);
-            if (!post)
-                return res.status(404).json({ status: "Failed", message: "Invalid Id" });
-            post.images.forEach(async (filename) => {
-                //del chunck
-                let file = await filesSchema.findOne({ filename: filename });
-                await chunksSchema.deleteMany({ files_id: file._id });
-                //del file
-                await filesSchema.deleteOne({ _id: file._id });
-            });
-            //del post
-            await Proposal.findByIdAndDelete(req.params.id);
-            res.status(200).json({ status: "Success" });
-        } catch (err) {
-            res.status(400).json({ status: "Failed", message: err.message });
-        }
+        let post = await Proposal.findById(req.params.id);
+        if (!post)
+            return res.status(404).json({ status: "Failed", message: "Invalid Id" });
+        post.images.forEach(async (filename) => {
+            //del chunck
+            let file = await filesSchema.findOne({ filename: filename });
+            await chunksSchema.deleteMany({ files_id: file._id });
+            //del file
+            await filesSchema.deleteOne({ _id: file._id });
+        });
+        //del post
+        await Proposal.findByIdAndDelete(req.params.id);
+        res.status(200).json({ status: "Success" });
+    } catch (err) {
+        res.status(400).json({ status: "Failed", message: err.message });
     }
+}
 
 module.exports = { getAllProposals, getVendorProposals, addNewProposal, editProposal, deleteProposal, renderImage };

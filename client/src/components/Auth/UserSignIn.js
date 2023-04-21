@@ -13,6 +13,8 @@ const UserSignIn = () => {
   const [show, setShow] = useState({ display: "block" });
   const [showCreateAccountForm, setShowCreateAccountForm] = useState(false);
   const [data, setData] = useState({});
+  const [err,setErr]=useState()
+  const [view,setView]=useState("none")
   const [token, setToken] = useState();
   const [msg, setErrormsg] = useState("");
   function handleview(action) {
@@ -32,12 +34,27 @@ const UserSignIn = () => {
   const handleSignUpSuccess = () => {
     setShowCreateAccountForm(false);
   };
+
+
+
+
   function handleSubmit(e) {
     e.preventDefault();
 
     if (!data.contact || !data.password) {
-      return alert("Kindly Fill all the details");
-    }
+      setView("block")
+      return setErr("Kindly Fill all the details");
+  }
+  let email=data.contact
+  console.log(email);
+  if(!email?.endsWith("@gmail.com")){
+      setView("block")
+      return setErr("Enter valid Email")
+  }
+  // if(!data.password<8){
+  //     setView("block")
+  //     return setErr("Passworg length atleast 8 characters")
+  // }
 
     console.log("hiii");
     axios
@@ -50,7 +67,7 @@ const UserSignIn = () => {
         setToken(res.data);
         console.log(res.data);
         localStorage.setItem("token", res.data);
-        navigate("/user");
+        navigate("/user/proposals");
       })
       .catch((err) => console.log(err));
   }
@@ -63,13 +80,12 @@ const UserSignIn = () => {
         <div>
           <form id="form-container">
             <h4 id="form-heading">Sign in your Account</h4>
-            <span id="errMsg">{msg}</span>
             <input
               type="text"
               placeholder="Phone/Email"
               id="vendor-contact"
               onChange={(e) =>
-                setData({ ...data, contact: e.target.value }, setErrormsg(""))
+                setData({ ...data, contact: e.target.value }, setErr(""),setView("none"))
               }
             />
             <br />
@@ -78,29 +94,34 @@ const UserSignIn = () => {
               placeholder="Password"
               id="vendor-password"
               onChange={(e) =>
-                setData({ ...data, password: e.target.value }, setErrormsg(""))
+                setData({ ...data, password: e.target.value }, setErr(""),setView("none"))
               }
             />
             <span className="icon-span-u">
               <AiFillEyeInvisible
                 style={hide}
-                className="eye"
+                className="Usereye"
                 onClick={() => handleview("hide")}
               />
               <AiFillEye
-                className="eye"
+                className="Usereye"
                 style={show}
                 onClick={() => handleview("show")}
               />
             </span>
             <br />
             <span id="forget-password">Forget Password?</span>
-            <span id="create-account" onClick={handleCreateAccount}>
-              Create Account
-            </span>
-            <button type="submit" id="vendor-btn" onClick={handleSubmit}>
+            <br/>
+           <div className="errsign">
+           <div className="error-msg-2" style={{"display":`${view}`}}> *{err}</div>
+            <button type="submit" id="user-btn" onClick={handleSubmit}>
               SIGN IN
             </button>
+           </div>
+            <br/>
+            <span id="create-account-u" onClick={handleCreateAccount}>
+              Create Account
+            </span>
           </form>
         </div>
       )}

@@ -7,11 +7,15 @@ import UserSignIn from "./UserSignIn";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import axios from "axios";
 import jwtdecode from "jwt-decode";
+import { useNavigate } from "react-router-dom";
 const VendorSignIn = () => {
+    const navigate=useNavigate()
     const [type, setType] = useState("password");
     const [hide, setHide] = useState({ display: "none" });
     const [show, setShow] = useState({ display: "block" });
     const [data, setData] = useState({});
+    const [err,setErr]=useState()
+    const [view,setView]=useState("none")
     const [token,setToken]=useState()
     const [showCreateAccountForm, setShowCreateAccountForm] = useState(false);
       const [msg, setErrormsg] = useState("");
@@ -33,13 +37,34 @@ const VendorSignIn = () => {
         setShowCreateAccountForm(false);
     };
     function handleSubmit(e) {
+
+        // setErr("")
+        // setView("none")
         e.preventDefault();
 
         if (!data.contact || !data.password) {
-            return alert("Kindly Fill all the details");
+            setView("block")
+            return setErr("Kindly Fill all the details");
         }
-        console.log("hiii");
-       const resu= axios.post("http://localhost:5000/login",{email:data.contact,password:data.password}).then((res)=>setToken(res)).catch((err)=> console.log(err))
+        let email=data.contact
+        console.log(email);
+        if(!email?.endsWith("@gmail.com")){
+            setView("block")
+            return setErr("Enter valid Email")
+        }
+        // if(!data.password<8){
+        //     setView("block")
+        //     return setErr("Passworg length atleast 8 characters")
+        // }
+       
+       const resu= axios.post("http://localhost:5000/login",{email:data.contact,password:data.password}).then((res)=>{
+        console.log("token is");
+        setToken(res.data);
+        console.log(res.data);
+        localStorage.setItem("token", res.data);
+        navigate("/vendor/proposals");
+       }).catch((err)=> console.log(err))
+
 
     }
     return (
@@ -84,7 +109,7 @@ const VendorSignIn = () => {
                                     ) : (
                                         <form id="form-container">
                                             <h4 id="form-heading">Sign in your Account</h4>
-                                            <span id="errMsg">{msg}</span>
+                                       
                                             <input
                                                 type="text"
                                                 placeholder="Phone/Email"
@@ -92,7 +117,7 @@ const VendorSignIn = () => {
                                                 onChange={(e) =>
                                                     setData(
                                                         { ...data, contact: e.target.value },
-                                                        setErrormsg("")
+                                                        setErr(""),setView("none")
                                                     )
                                                 }
                                             />
@@ -104,7 +129,7 @@ const VendorSignIn = () => {
                                                 onChange={(e) =>
                                                     setData(
                                                         { ...data, password: e.target.value },
-                                                        setErrormsg("")
+                                                        setErr(""),setView("none")
                                                     )
                                                 }
                                             />
@@ -121,7 +146,10 @@ const VendorSignIn = () => {
                                                 />
                                             </span>
                                             <br />
+                
                                             <span id="forget-password">Forget Password?</span>
+                                            <br/>
+                                                <div className="errMsg" style={{"display":`${view}`}}> *{err}</div>
                                             <span id="create-account" onClick={handleCreateAccount}>
                                                 Create Account
                                             </span>

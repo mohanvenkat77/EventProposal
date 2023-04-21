@@ -8,9 +8,7 @@ const proposalRouter = require("./routes/proposalRouter");
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-
 app.use('/', register)
-app.use('/', login)
 app.use("/proposal", proposalRouter);
 
 module.exports = app;

@@ -2,9 +2,15 @@ import React, { useEffect, useState } from "react";
 import { EachProposal } from "./EachProposal";
 import { NewProposal } from "./NewProposal";
 import { allProposalByVendor_api } from "../../utills/api-utill";
+
+import { useNavigate } from "react-router-dom";
+import jwtDecode from "jwt-decode";
+
 import proposalFilter from "../../utills/proposalFilter";
 
+
 export function VendorProposals() {
+    const navigate=useNavigate()
     const [create, setCreate] = useState(false);
     const [edit, setEdit] = useState(null);
     const [proposals, setProposals] = useState([]);
@@ -35,6 +41,10 @@ export function VendorProposals() {
     }
 
     useEffect(() => {
+    let token=localStorage.getItem("token")
+        if(!token) return navigate("/")
+        let user=jwtDecode(token)
+        if(!user.user.isVendor) return navigate("/")
         getProposals();
     }, []);
 

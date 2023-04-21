@@ -2,12 +2,19 @@ import React, { useState } from "react";
 // import "./VendorSignUp.css";
 import axios from "axios";
 import jwtdecode from "jwt-decode";
+import { useNavigate } from "react-router-dom";
 const VendorSignUp = (props) => {
+  const navigate=useNavigate()
   const [data, setData] = useState({});
   const [msg, setErrormsg] = useState("");
   const [msg1, setErrormsg1] = useState("");
   const [isVendor, setIsvendor] = useState(true);
+  const [err, setErr] = useState("");
+  const [view,setView]=useState("none")
   const [token, settoken] = useState();
+
+
+
   const handleSignUp = (e) => {
     e.preventDefault();
   };
@@ -15,10 +22,24 @@ const VendorSignUp = (props) => {
     e.preventDefault();
     console.log(data);
     if (!data.contact || !data.vendorName || !data.email || !data.password) {
-      setErrormsg("Kindly Fill all the details");
+      setView("block")
+      return setErr("Kindly Fill all the details");
     }
+    if(!data.email?.endsWith("@gmail.com")){
+      setView("block")
+      return setErr("Enter valid Email")
+  }
+  if(data.password<8){
+      setView("block")
+      return setErr("Passworg length atleast 8 characters")
+  }
+  if(data.contact<10){
+    setView("block")
+    return setErr("Enter valid contact Number")
+}
     if (data.password !== data.confirmPassword) {
-      setErrormsg("Password and Confirm Passowrd are not matching");
+      setView("block")
+      return setErr("Password and Confirm Password no match");
     }
     const res = axios
       .post("http://localhost:5000/register", {
@@ -28,10 +49,12 @@ const VendorSignUp = (props) => {
         password: data.password,
         isVendor: isVendor,
       })
-      .then((res) => settoken(res.data))
+      .then((res) => {
+        localStorage.setItem("token", res.data.token);
+        console.log(res.data);
+        navigate("/vendor/proposals")
+      })
       .catch((err) => console.log(err));
-      const user=jwtdecode(token)
-      console.log(user);
   }
 
   return (
@@ -48,8 +71,7 @@ const VendorSignUp = (props) => {
           onChange={(e) =>
             setData(
               { ...data, vendorName: e.target.value },
-              setErrormsg(""),
-              setErrormsg1("")
+              setErr(""),setView("none")
             )
           }
         />
@@ -59,7 +81,7 @@ const VendorSignUp = (props) => {
           placeholder="Email"
           id="vendor-email"
           value={data.email || ""}
-          onChange={(e) => setData({ ...data, email: e.target.value })}
+          onChange={(e) => setData({ ...data, email: e.target.value },  setErr(""),setView("none"))}
         />
         <br />
         <input
@@ -67,7 +89,7 @@ const VendorSignUp = (props) => {
           placeholder="Contact"
           id="vendorContact"
           value={data.contact || ""}
-          onChange={(e) => setData({ ...data, contact: e.target.value })}
+          onChange={(e) => setData({ ...data, contact: e.target.value },  setErr(""),setView("none"))}
         />
         <br />
         <input
@@ -76,7 +98,7 @@ const VendorSignUp = (props) => {
           id="vendor-passowrd"
           value={data.password || ""}
           onChange={(e) =>
-            setData({ ...data, password: e.target.value }, setErrormsg(""))
+            setData({ ...data, password: e.target.value },   setErr(""),setView("none"))
           }
         />
         <br />
@@ -86,10 +108,11 @@ const VendorSignUp = (props) => {
           id="vendor-conPassword"
           value={data.confirmPassword || ""}
           onChange={(e) =>
-            setData({ ...data, confirmPassword: e.target.value })
+            setData({ ...data, confirmPassword: e.target.value },  setErr(""),setView("none"))
           }
         />
         <br />
+        <div className="err-msg-2" style={{"display":`${view}`}}>*{err}</div>          <div className="err-msg-2" style={{"display":`${view}`}}>*{err}</div>
         <button type="submit" id="vendor-btn2" onClick={handleSubmit}>
           REGISTER
         </button>

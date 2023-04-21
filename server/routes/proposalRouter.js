@@ -1,6 +1,6 @@
 require("dotenv").config();
 const router = require("express").Router();
-const { getAllProposals, getVendorProposals, addNewProposal, deleteProposal, renderImage, editProposal } = require("../controller/proposalController");
+const { getAllProposals, getVendorProposals, addNewProposal, deleteProposal, renderImage, editProposal, getSingleProposal } = require("../controller/proposalController");
 const upload = require("../middleware/proposalImageStorage");
 // const multer = require("multer");
 // const {GridFsStorage} = require("multer-gridfs-storage");
@@ -20,6 +20,7 @@ const upload = require("../middleware/proposalImageStorage");
 // });
 
 router.get("/", getAllProposals);
+router.get("/:id",getSingleProposal);
 router.get("/vendor/:id", getVendorProposals);
 router.post("/", upload.array("images", 10), addNewProposal);
 router.put("/:id", upload.array("images", 10), editProposal);

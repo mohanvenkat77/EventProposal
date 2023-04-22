@@ -1,19 +1,33 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { deleteCurrentUser, deleteToken, getCurrentUser } from '../utills/storage-utills';
 
-const HeaderCard = ({ name, contact, email}) => {
+const HeaderCard = ({setProfile}) => {
     const navigate=useNavigate()
     const onLogout=()=>{
-        localStorage.removeItem("token")
+        deleteToken();
+        deleteCurrentUser();
         navigate("/")
     }
+
+    const {contact, email} = getCurrentUser();
+
   return (
     <div className="Headercard">
-      <div className="card-body">
-        <p className="card-subtitle">87887656</p>
-        <p id="Hcard">mohan@gmail.com</p>
-        <button className="btn btn-danger logout" onClick={onLogout}>Logout</button>
-      </div>
+      <ul>
+        <li>
+            {contact}
+        </li>
+        <li>
+          {email}
+        </li>
+        <li onClick={() => setProfile(true)}>
+          Change DP
+        </li>
+        <li>
+          <button onClick={onLogout}>Logout</button>
+        </li>
+      </ul>
     </div>
   );
 };

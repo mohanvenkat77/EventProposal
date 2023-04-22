@@ -7,6 +7,7 @@ const jwtAuthToken = require("../middleware/jwtAuthToken");
 
 
  const updatelist=async(req,res)=>{
+   console.log(req.params);
   let {id}=req.params
   let list=req.body
   console.log(id);
@@ -35,11 +36,13 @@ const jwtAuthToken = require("../middleware/jwtAuthToken");
  }
 
 
+
+
  const singleuser=async(req,res)=>{
   const {id}=req.params
+  console.log(req.params);
   try {
-
-    const prop=await User.findById({_id:id})
+    const prop=await User.findById(id)
 
     res.status(200).json({status:"completed",message:"single user is..",data:prop})
   } catch (error) {

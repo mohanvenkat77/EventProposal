@@ -45,6 +45,7 @@ const userLogin = async (req, res) => {
     let { email, password, contact } = req.body;
     try {
         let user = await User.findOne({ email });
+
         if (user) {
             if (await bcrypt.compare(password, user.password)) {
                 const { name, email, contact, isUser, selected, _id } = user;

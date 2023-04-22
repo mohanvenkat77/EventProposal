@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { editProposal_api, newProposal_api } from "../../utills/api-utill";
+import { useOutletContext } from "react-router-dom";
 
 export function NewProposal({ setCreate, onAdd, onUpdate, edit, onEdit }) {
 
@@ -27,12 +28,12 @@ export function NewProposal({ setCreate, onAdd, onUpdate, edit, onEdit }) {
             setImgArray(arr => ([...arr, url]));
         }
     }
-
+    const {userID} = useOutletContext();
     function formSubmission(e) {
         e.preventDefault();
         setBoo(false);
         let result = new FormData(e.target);
-        result.append("vendorId", "sabeerForDefault")
+        result.append("vendorId", userID)
         if (!edit) {
             newProposal_api(result)
                 .then(res => {
@@ -118,7 +119,7 @@ export function NewProposal({ setCreate, onAdd, onUpdate, edit, onEdit }) {
                                 </select>
                             </div>
                             <div className="type">
-                                <label htmlFor="budjet">Budjet</label>
+                                <label htmlFor="budjet">Budget</label>
                                 <input type="number" id="budjet" name="budget" value={formData.budget} placeholder="000000" required onChange={(e) => setFormData(ex => ({ ...ex, budget: e.target.value }))} />
                             </div>
                         </div>

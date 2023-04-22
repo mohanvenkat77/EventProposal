@@ -3,10 +3,11 @@ import { EachProposal } from "./EachProposal";
 import { NewProposal } from "./NewProposal";
 import { allProposalByVendor_api } from "../../utills/api-utill";
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
 import jwtDecode from "jwt-decode";
 
 import proposalFilter from "../../utills/proposalFilter";
+import { getCurrentUser, getToken } from "../../utills/storage-utills";
 
 
 export function VendorProposals() {
@@ -28,10 +29,14 @@ export function VendorProposals() {
         internal : false,
         external : false,
         ["0-25000"] : false,
+        ["25001-50000"] : false,
+        ["50001-75000"] : false,
+        ["75001-100000"] : false,
+        ["> 100000"] : false,
     });
 
     function getProposals() {
-        allProposalByVendor_api("sabeerForDefault")
+        allProposalByVendor_api(getCurrentUser()._id)
             .then(res => {
                 if (res.status === "Success") {
                     setProposals(res.proposals);
@@ -42,15 +47,11 @@ export function VendorProposals() {
     }
 
     useEffect(() => {
-    let token=localStorage.getItem("token")
-        if(!token) return navigate("/")
-        let user=jwtDecode(token)
-        if(!user.user.isVendor) return navigate("/")
+        if(!getToken() || !getCurrentUser().isVendor) return navigate("/");
         getProposals();
     }, []);
 
     function onFilter(key, val) {
-        // console.log(filters)
         let inp = { ...filters, [key]: val };
         const result = proposalFilter(inp, original);
         if (!result) getProposals();
@@ -169,11 +170,32 @@ export function VendorProposals() {
                             <label htmlFor="0-25000Filter">0 - 25000</label>
                         </li>
                         <li>
-                            <input type="checkbox" id="0-25000Filter" onChange={(e) => {
-                                setFilters(ex => ({ ...ex, ["0-25000"]: e.target.checked }));
-                                onFilter("0-25000", e.target.checked);
+                            <input type="checkbox" id="25001-50000Filter" onChange={(e) => {
+                                setFilters(ex => ({ ...ex, ["25001-50000"]: e.target.checked }));
+                                onFilter("25001-50000", e.target.checked);
                             }} />
-                            <label htmlFor="0-25000Filter">25001 - 50000</label>
+                            <label htmlFor="25001-50000Filter">25001 - 50000</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="50001-75000Filter" onChange={(e) => {
+                                setFilters(ex => ({ ...ex, ["50001-75000"]: e.target.checked }));
+                                onFilter("50001-75000", e.target.checked);
+                            }} />
+                            <label htmlFor="25001-50000Filter">50001 - 75000</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="75001-100000Filter" onChange={(e) => {
+                                setFilters(ex => ({ ...ex, ["75001-100000"]: e.target.checked }));
+                                onFilter("75001-100000", e.target.checked);
+                            }} />
+                            <label htmlFor="75001-100000Filter">75001 - 100000</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="above100000Filter" onChange={(e) => {
+                                setFilters(ex => ({ ...ex, ["> 100000"]: e.target.checked }));
+                                onFilter("> 100000", e.target.checked);
+                            }} />
+                            <label htmlFor="above100000Filterr">above 100000</label>
                         </li>
                     </ul>}
                     <button onClick={() => setCreate(true)}>CREATE</button>

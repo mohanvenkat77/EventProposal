@@ -21,16 +21,13 @@ const userSchema = new mongoose.Schema(
     },
     selected:{
       type:[String],
-      required:true,
-      default:[]
+      required : true,
+      default : []
     },
     isUser: {
       type: Boolean,
-      default: false,
-    },
-    isVendor: {
-      type: Boolean,
-      default: false,
+      required : true,
+      default : true
     },
   },
   { timestamp: true }

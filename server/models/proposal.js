@@ -48,7 +48,7 @@ const proposalSchema = new mongoose.Schema(
       required: true,
     },
     vendorId : {
-      type : String,
+      type : mongoose.Schema.Types.ObjectId,
       ref : "vendor",
       required : true
     }

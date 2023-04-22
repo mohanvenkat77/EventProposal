@@ -181,7 +181,7 @@ export function VendorProposals() {
                                 setFilters(ex => ({ ...ex, ["50001-75000"]: e.target.checked }));
                                 onFilter("50001-75000", e.target.checked);
                             }} />
-                            <label htmlFor="25001-50000Filter">50001 - 75000</label>
+                            <label htmlFor="50001-75000Filter">50001 - 75000</label>
                         </li>
                         <li>
                             <input type="checkbox" id="75001-100000Filter" onChange={(e) => {
@@ -195,7 +195,7 @@ export function VendorProposals() {
                                 setFilters(ex => ({ ...ex, ["> 100000"]: e.target.checked }));
                                 onFilter("> 100000", e.target.checked);
                             }} />
-                            <label htmlFor="above100000Filterr">above 100000</label>
+                            <label htmlFor="above100000Filter">above 100000</label>
                         </li>
                     </ul>}
                     <button onClick={() => setCreate(true)}>CREATE</button>

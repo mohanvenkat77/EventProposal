@@ -1,6 +1,6 @@
 const bcypt = require("bcrypt");
 const joi = require("joi");
-const User = require("../Models/user");
+const User = require("../models/user");
 const jwt = require("jsonwebtoken");
 const jwtAuthToken = require("../middleware/jwtAuthToken");
 // const Proposal=require("../Model/proposal")
@@ -46,4 +46,4 @@ const jwtAuthToken = require("../middleware/jwtAuthToken");
     res.status(400).json({status:"failed",message:error.message});
   }
  }
-module.exports = { register,login,updatelist,singleuser };
+module.exports = { updatelist,singleuser };

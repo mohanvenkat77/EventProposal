@@ -25,8 +25,8 @@ const HeaderCard = ({setProfile}) => {
         <li onClick={() => setProfile(true)}>
           Change DP
         </li>
-        <li>
-          <button onClick={onLogout}>Logout</button>
+        <li onClick={onLogout}>
+          <button >Logout</button>
         </li>
       </ul>
     </div>

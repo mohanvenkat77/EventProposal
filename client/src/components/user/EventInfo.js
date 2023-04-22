@@ -15,6 +15,7 @@ import { useDispatch } from "react-redux";
 
 import BASE_URL from "../../utills/api-utill";
 import { getCurrentUser } from "../../utills/storage-utills";
+import { selecteditems } from "../../redux/selectedstore";
 const EventInfo = () => {
   const dispatch=useDispatch()
   const navigate = useNavigate();

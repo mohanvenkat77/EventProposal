@@ -8,18 +8,24 @@ export function Header() {
     const navigate=useNavigate()
   const [name, setname] = useState();
   const [show, setShow] = useState(false);
-
+const [contact,setcontact]=useState()
+const [email,setemail]=useState()
   useEffect(() => {
     const token = localStorage.getItem("token");
     if(!token) return navigate("/")
     const user = jwtDecode(token);
     setname(user.user.name);
+    setemail(user.user.email)
+    setcontact(user.user.contact)
   }, []);
 
   const About=()=>{
     setShow(!show)
   }
 
+  const onlogout=()=>{
+    setShow(!show)
+  }
 
   return (
     <>
@@ -35,7 +41,7 @@ export function Header() {
                 onClick={About}
               />
             </div>
-           {show?<HeaderCard/>:null}
+           {show?<HeaderCard contact={contact} email={email} setShow={setShow}/>:null}
           </nav>
         </header>
         <div className="outlet-container">

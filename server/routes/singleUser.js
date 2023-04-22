@@ -3,9 +3,10 @@ const express = require("express");
 const User = require("../Models/user");
 const jwt = require("jsonwebtoken");
 const jwtAuthToken = require("../middleware/jwtAuthToken");
-const { register, login } = require("../controller/register");
+const { updatelist,singleuser } = require("../controller/singleUser");
 const router = express.Router();
 
-router.post("/register",register)
-router.post("/login",login)
+
+router.put("/update/:id",updatelist)
+router.get("/singleuser/:id",singleuser)
 module.exports = router;

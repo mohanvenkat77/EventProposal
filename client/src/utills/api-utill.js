@@ -1,11 +1,13 @@
+import axios from "axios";
+
 const BASE_URL = "http://localhost:5000";
 
 
 //TO GET ALL PROPOSALS
 export function allProposal_api() {
 
-    return fetch(`${BASE_URL}/proposal`)
-        .then(res => res.json())
+    return axios.get(`${BASE_URL}/proposal`)
+        .then(res => res)
         .catch(err => alert("FROM SERVER : " + err.message));
 }
 
@@ -46,3 +48,5 @@ export function deleteProposalByVendor_api(id) {
         .then(res => res.json())
         .catch(err => alert("FROM SERVER : " + err.message));
 }
+
+export default BASE_URL;

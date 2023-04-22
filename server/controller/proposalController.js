@@ -19,11 +19,9 @@ const getAllProposals = async (req, res) => {
 const getSingleProposal=async(req,res)=>{
     let {id}=req.params
     try {
-        console.log("single proposal")
-        console.log(id);
+      
         let proposal=await Proposal.findById(id)
-        console.log(proposal);
-        console.log(proposal);
+      
         res.status(200).json({status:"Sucess",proposal})
     } catch (err) {
         res.status(400).json({status:"Failed",message:err.message})

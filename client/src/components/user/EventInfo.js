@@ -14,6 +14,8 @@ import CardItem from "./CardItem";
 import { useDispatch } from "react-redux";
 
 import BASE_URL from "../../utills/api-utill";
+import { getCurrentUser } from "../../utills/storage-utills";
+import { selecteditems } from "../../redux/selectedstore";
 const EventInfo = () => {
   const dispatch=useDispatch()
   const navigate = useNavigate();
@@ -32,17 +34,12 @@ const EventInfo = () => {
   
 
   const selectbtn = () => {
-    const token=localStorage.getItem("token")
-    const user=jwtDecode(token)
-    const id=user.user.id
-    console.log(params.id);
-    const p_id = params.id;
-    // axios.put(`http://localhost:5000/update/${id}`,{
-    //   "selected":items
-    // }).then((res)=>{
-    //   dispatch(selecteditems(res.data.data.selected))
-    // }).catch((err)=> console.log(err))
-    // navigate("/user/proposals")
+    axios.put(`http://localhost:5000/update/${getCurrentUser()._id}`,{
+      "selected":items
+    }).then((res)=>{
+      dispatch(selecteditems(res.data.data.selected))
+    }).catch((err)=> console.log(err))
+    navigate("/user/proposals")
   };
 
   return (

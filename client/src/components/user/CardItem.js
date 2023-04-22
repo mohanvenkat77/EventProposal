@@ -6,7 +6,7 @@ const CardItem = ({ key,id,imageSrc, title, price, locatioin }) => {
   const navigate = useNavigate();
 
   const EventHandler = () => {
-    navigate(`/user/${id}`);
+    navigate(`/user/proposals/${id}`);
   };
 
   return (

@@ -74,7 +74,7 @@ export function loginToAccount(data, boolean) {
         body: JSON.stringify(data)
     })
         .then(res => res.json())
-        .catch(err => alert(err.message));
+        .catch(err => alert("FROM SERVER : " + err.message));
 }
 
 //TO REGISTER
@@ -86,6 +86,16 @@ export function registerAnAccount(data, boolean) {
             "accept": "application/json"
         },
         body: JSON.stringify(data)
+    })
+        .then(res => res.json())
+        .catch(err => alert("FROM SERVER : " + err.message));
+}
+
+//TO UPDATE PROFILE PIC
+export function updateUserDp(dp, id, boolean) {
+    return fetch(`${BASE_URL}/${boolean}/${id}`, {
+        method: "PUT",
+        body: dp
     })
         .then(res => res.json())
         .catch(err => alert(err.message));

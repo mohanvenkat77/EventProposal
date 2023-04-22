@@ -10,6 +10,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
       unique: true,
+      lowercase: true
     },
     contact: {
       type: String,
@@ -19,16 +20,20 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    selected:{
-      type:[String],
-      required : true,
-      default : []
+    selected: {
+      type: [String],
+      required: true,
+      default: []
     },
     isUser: {
       type: Boolean,
-      required : true,
-      default : true
+      required: true,
+      default: true
     },
+    profilePic: {
+      type: String,
+      default: null,
+    }
   },
   { timestamp: true }
 );

@@ -75,7 +75,6 @@ const editProposal = async (req, res) => {
     try {
         let proposal = await Proposal.findById(req.params.id)
         if (!proposal) return res.status(404).json({ status: "Failed", message: "Invalid Id" });
-        // if(1) {
         if (req.files && req.files.length > 0) {
             const arr = req.files.map(file => file.filename);
             proposal = await Proposal.findByIdAndUpdate(req.params.id, {...req.body, images: [...arr] }, { new: true });
@@ -83,10 +82,6 @@ const editProposal = async (req, res) => {
             proposal = await Proposal.findByIdAndUpdate(req.params.id, req.body, { new: true });
         }
         res.status(200).json({ status: "Success", proposal });
-        // } else {
-        //     res.status(401).json({status : "Failed", message : "Unauthorized"});
-        // }
-
     } catch (err) {
         res.status(400).json({ status: "Failed", message: err.message });
     }

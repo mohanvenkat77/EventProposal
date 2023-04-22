@@ -1,12 +1,13 @@
 const bcypt = require("bcrypt");
 const joi = require("joi");
-const User = require("../Models/user");
+const User = require("../models/user");
 const jwt = require("jsonwebtoken");
 const jwtAuthToken = require("../middleware/jwtAuthToken");
 // const Proposal=require("../Model/proposal")
 
 
  const updatelist=async(req,res)=>{
+   console.log(req.params);
   let {id}=req.params
   let list=req.body
   console.log(id);
@@ -35,15 +36,17 @@ const jwtAuthToken = require("../middleware/jwtAuthToken");
  }
 
 
+
+
  const singleuser=async(req,res)=>{
   const {id}=req.params
+  console.log(req.params);
   try {
-
-    const prop=await User.findById({_id:id})
+    const prop=await User.findById(id)
 
     res.status(200).json({status:"completed",message:"single user is..",data:prop})
   } catch (error) {
     res.status(400).json({status:"failed",message:error.message});
   }
  }
-module.exports = { register,login,updatelist,singleuser };
+module.exports = { updatelist,singleuser };

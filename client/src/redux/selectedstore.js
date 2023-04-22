@@ -10,7 +10,6 @@ const authSLice = createSlice({
   initialState,
   reducers: {
     selecteditems(state, action) {
-   
         console.log("store",action.payload);
         console.log("store",current(state.list));
         state.list.push(...action.payload)

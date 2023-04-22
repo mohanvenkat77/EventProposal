@@ -19,9 +19,9 @@ const navigate=useNavigate()
       .catch((err) => {
         console.log(err);
       });
-
+console.log(getCurrentUser()._id)
     axios
-      .get(`${BASE_URL}/singleuser/${user.user.id}`)
+      .get(`${BASE_URL}/singleuser/${getCurrentUser()._id}`)
       .then((res) => {
         console.log(res.data.data.selected);
         setlist(res.data.data.selected);

@@ -22,7 +22,7 @@ const userRegister = async (req, res) => {
     }
 }
 
-const vendorRegister = async (req, res, next) => {
+const vendorRegister = async (req, res) => {
     try {
         let { password, email } = req.body;
         let hashedPassword = await bcrypt.hash(password, 10);
@@ -36,6 +36,7 @@ const vendorRegister = async (req, res, next) => {
         newUser = await newUser.save();
         res.status(201).json({ status: "Success", user: newUser });
     } catch (err) {
+        console.log(err.message)
         res.status(400).json({ status: "Failed", message: err.message });
     }
 }
@@ -48,9 +49,7 @@ const userLogin = async (req, res) => {
         if (user) {
             if (await bcrypt.compare(password, user.password)) {
                 const { name, email, contact, isUser, selected, _id } = user;
-
-               let jwtToken = await jwt.sign({ name, email, contact, isUser, selected, _id }, process.env.SECRET);
-         
+                let jwtToken = await jwt.sign({ name, email, contact, isUser, selected, _id }, process.env.SECRET);
                 res.status(200).json({ status: "Success", token: "JWT " + jwtToken, user });
             } else {
                 res.status(401).json({ status: "Failed", field: "password", message: "Password not match!!" });
@@ -85,4 +84,14 @@ const vendorLogin = async (req, res, next) => {
     }
 }
 
-module.exports = { userLogin, userRegister, vendorLogin, vendorRegister };
+//TO GET SINGLE VENDOR DETAIS
+const getSingleVendor = async (req, res) => {
+    try {
+        let vendor = await Vendor.findById(req.params.id);
+        res.status(200).json({ status: "Sucess", vendor });
+    } catch (err) {
+        res.status(400).json({ status: "Failed", message: err.message })
+    }
+}
+
+module.exports = { userLogin, userRegister, vendorLogin, vendorRegister, getSingleVendor};

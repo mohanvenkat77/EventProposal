@@ -12,7 +12,7 @@ import Selected from "./Selected";
 import CardList from "./CardList";
 import CardItem from "./CardItem";
 import { useDispatch } from "react-redux";
-import { selecteditems } from "../../redux/selectedstore";
+
 import BASE_URL from "../../utills/api-utill";
 import { getCurrentUser } from "../../utills/storage-utills";
 const EventInfo = () => {
@@ -33,11 +33,6 @@ const EventInfo = () => {
   
 
   const selectbtn = () => {
-    // const token=localStorage.getItem("token")
-    // const user=jwtDecode(token)
-    // const id=user.user.id
-    // console.log(params.id);
-    // const p_id = params.id;
     axios.put(`http://localhost:5000/update/${getCurrentUser()._id}`,{
       "selected":items
     }).then((res)=>{

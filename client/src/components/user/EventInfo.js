@@ -12,7 +12,7 @@ import Selected from "./Selected";
 import CardList from "./CardList";
 import CardItem from "./CardItem";
 import { useDispatch } from "react-redux";
-import { selecteditems } from "../../redux/selectedstore";
+
 import BASE_URL from "../../utills/api-utill";
 const EventInfo = () => {
   const dispatch=useDispatch()
@@ -37,12 +37,12 @@ const EventInfo = () => {
     const id=user.user.id
     console.log(params.id);
     const p_id = params.id;
-    axios.put(`http://localhost:5000/update/${id}`,{
-      "selected":items
-    }).then((res)=>{
-      dispatch(selecteditems(res.data.data.selected))
-    }).catch((err)=> console.log(err))
-    navigate("/user/proposals")
+    // axios.put(`http://localhost:5000/update/${id}`,{
+    //   "selected":items
+    // }).then((res)=>{
+    //   dispatch(selecteditems(res.data.data.selected))
+    // }).catch((err)=> console.log(err))
+    // navigate("/user/proposals")
   };
 
   return (

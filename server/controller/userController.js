@@ -44,10 +44,13 @@ const userLogin = async (req, res) => {
     let { email, password, contact } = req.body;
     try {
         let user = await User.findOne({ email });
+
         if (user) {
             if (await bcrypt.compare(password, user.password)) {
                 const { name, email, contact, isUser, selected, _id } = user;
-                jwtToken = await jwt.sign({ name, email, contact, isUser, selected, _id }, process.env.SECRET);
+
+               let jwtToken = await jwt.sign({ name, email, contact, isUser, selected, _id }, process.env.SECRET);
+         
                 res.status(200).json({ status: "Success", token: "JWT " + jwtToken, user });
             } else {
                 res.status(401).json({ status: "Failed", field: "password", message: "Password not match!!" });

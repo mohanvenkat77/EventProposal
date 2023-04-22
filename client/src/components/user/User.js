@@ -1,26 +1,19 @@
-import React, { useState, useEffect } from "react";
-import CardList from "./CardList";
-import axios from "axios";
-import jwtDecode from "jwt-decode";
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState,useEffect } from 'react'
+import CardList from './CardList'
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import BASE_URL from "../../utills/api-utill";
+import { getCurrentUser, getToken } from '../../utills/storage-utills';
 import Scard from "./Scard";
-// import party2 from "./images/party2x.jpg"
+
 const User = () => {
-  const navigate = useNavigate();
-  // const { list} = useSelector((state) => state.selected);
-  // console.log(list);
-  const [items, setitems] = useState([]);
-  const [list, setlist] = useState([]);
-  useEffect(() => {
-    let token = localStorage.getItem("token");
-    if (!token) return navigate("/");
-    let user = jwtDecode(token);
-    if (!user.user.isUser) return navigate("/");
-    axios
-      .get(`${BASE_URL}/proposal`)
-      .then((res) => {
+const navigate=useNavigate()
+    const [items,setitems]=useState()
+    const [list, setlist] = useState([]);
+
+    useEffect(() => {
+      if(!getToken() || !getCurrentUser().isUser) return navigate("/");
+      axios.get("http://localhost:5000/proposal").then((res) => {
         setitems(res.data.proposals);
       })
       .catch((err) => {

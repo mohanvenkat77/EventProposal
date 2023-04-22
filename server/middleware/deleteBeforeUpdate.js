@@ -3,8 +3,9 @@ const Proposal = require("../models/proposal");
 const { MongoClient } = require("mongodb");
 const mongoClient = new MongoClient(process.env.DB_URL);
 
-const deleteProposal = async (req, res, next) => {
+const deleteBeforeUpdate = async (req, res, next) => {
     try {
+        if(!req.files) return next();
         await mongoClient.connect();
         const db = mongoClient.db(process.env.DB_NAME);
         const filesSchema = db.collection(process.env.DB_IMAGE_COLLECTION + ".files");
@@ -25,3 +26,5 @@ const deleteProposal = async (req, res, next) => {
         return res.status(400).json({ status: "Failed", message: err.message });
     }
 }
+
+module.exports = deleteBeforeUpdate;

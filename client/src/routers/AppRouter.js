@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, HashRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Header } from "../components/Header";
 import { VendorProposals } from "../components/vendor/VendorProposals";
 import User from "../components/user/User";
@@ -17,13 +17,14 @@ import "../styles/user.css";
 import "../styles/venue.css";
 import "../styles/HeaderCard.css";
 import EventInfo from "../components/user/EventInfo";
-
+import Home from "../components/LoginAndRegister/Home";
 
 export function AppRouter() {
   return <>
       <BrowserRouter>
       <Header/>
         <Routes>
+          <Route path="/" element={<Home/>} />
           <Route path="/vendor" element={<Header />}>
             <Route path="proposals" element={<VendorProposals />} />
           </Route>

@@ -9,14 +9,11 @@ export function Header() {
     const navigate=useNavigate()
   const [user, setUser] = useState({});
   const [show, setShow] = useState(false);
-
+const [contact,setcontact]=useState()
+const [email,setemail]=useState()
   useEffect(() => {
     if(!getToken()) return navigate("/");
     setUser(getCurrentUser());
-    // const token = localStorage.getItem("token");
-    // if(!token) return navigate("/")
-    // const user = jwtDecode(token);
-    // setname(user.user.name);
   }, []);
 
   const About=()=>{
@@ -26,6 +23,9 @@ export function Header() {
     navigate("/")
   }
 
+  const onlogout=()=>{
+    setShow(!show)
+  }
 
   return (
     <>
@@ -41,7 +41,7 @@ export function Header() {
                 onClick={About}
               />
             </div>
-           {show?<HeaderCard/>:null}
+           {show?<HeaderCard contact={contact} email={email} setShow={setShow}/>:null}
           </nav>
         </header>
         <div className="outlet-container">

@@ -1,8 +1,9 @@
 import React from 'react'
+import BASE_URL from '../../utills/api-utill'
 
 const Card2 = ({items}) => {
     const {images,eventName}=items
-    console.log(items)
+
   return (
     <div>
     <div className='card2-text'>My albums</div>
@@ -10,7 +11,7 @@ const Card2 = ({items}) => {
        {
         images.map((img)=>(
           <>
-           <img className='card2-img' src={`http://localhost:5000/proposal/images/${img}`} alt={eventName}/>
+           <img className='card2-img' src={`${BASE_URL}/proposal/images/${img}`} alt={eventName}/>
           </>
         ))
        }

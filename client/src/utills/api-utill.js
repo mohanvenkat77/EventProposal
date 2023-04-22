@@ -1,13 +1,14 @@
+import axios from "axios";
 import { getToken } from "./storage-utills";
+
 
 const BASE_URL = "http://localhost:5000";
 
 
 //TO GET ALL PROPOSALS
 export function allProposal_api() {
-
-    return fetch(`${BASE_URL}/proposal`)
-        .then(res => res.json())
+    return axios.get(`${BASE_URL}/proposal`)
+        .then(res => res)
         .catch(err => alert("FROM SERVER : " + err.message));
 }
 
@@ -38,7 +39,7 @@ export function newProposal_api(data) {
         .catch(err => alert("FROM SERVER : " + err.message));
 }
 
-//
+//TO EDIT THE PROPOSAL
 export function editProposal_api(data, id) {
 
     return fetch(`${BASE_URL}/proposal/${id}`, {
@@ -89,3 +90,6 @@ export function registerAnAccount(data, boolean) {
         .then(res => res.json())
         .catch(err => alert(err.message));
 }
+
+export default BASE_URL;
+

@@ -22,15 +22,13 @@ import Home from "../components/LoginAndRegister/Home";
 export function AppRouter() {
   return <>
       <BrowserRouter>
+      <Header/>
         <Routes>
           <Route path="/" element={<Home/>} />
           <Route path="/vendor" element={<Header />}>
             <Route path="proposals" element={<VendorProposals />} />
           </Route>
-
-          <Route path="/user" element={<Header />}>
-            <Route path="proposals" element={<User />} />
-          </Route>
+            <Route path="/user/proposals" element={<User />} />
           <Route path="/user/:id" element={<EventInfo />} />
         </Routes>
       </BrowserRouter>

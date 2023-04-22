@@ -3,11 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import { deleteCurrentUser, deleteToken, getCurrentUser } from '../utills/storage-utills';
 
 const HeaderCard = ({setProfile}) => {
+
     const navigate=useNavigate()
     const onLogout=()=>{
         deleteToken();
         deleteCurrentUser();
-        navigate("/")
+        navigate("/")   
     }
 
     const {contact, email} = getCurrentUser();

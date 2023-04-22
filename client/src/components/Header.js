@@ -11,7 +11,7 @@ export function Header() {
   const [user, setUser] = useState({});
   const [show, setShow] = useState(false);
   const [profile, setProfile] = useState(false);
-
+  
   useEffect(() => {
     if (!getToken()) return navigate("/");
     setUser(getCurrentUser());
@@ -20,6 +20,7 @@ export function Header() {
   const About = () => {
     setShow(!show)
   }
+
 
   const defaultDp = "https://thumbs.dreamstime.com/b/default-profile-picture-avatar-photo-placeholder-vector-illustration-default-profile-picture-avatar-photo-placeholder-vector-189495158.jpg";
   const ownDp = getCurrentUser().profilePic;

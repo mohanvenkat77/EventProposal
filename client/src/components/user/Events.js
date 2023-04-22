@@ -2,7 +2,6 @@ import React from "react";
 
 const Events = ({items}) => {
   const eventList=items.events.split(",")
-  console.log(eventList);
   return (
     <div className="events-list">
       <div className="venue-title">Events</div>

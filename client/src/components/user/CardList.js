@@ -1,12 +1,12 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CardItem from "./CardItem";
 const CardList = ({ items }) => {
-  console.log(items)
-  const navigate = useNavigate();
+
   return (
     <div className="card-list">
-      {items.map((item) => (
+      {items?.map((item) => (
         
         <CardItem
           key={item._id}

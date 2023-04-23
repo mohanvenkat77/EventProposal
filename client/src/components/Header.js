@@ -23,7 +23,7 @@ export function Header() {
 
 
   const defaultDp = "https://thumbs.dreamstime.com/b/default-profile-picture-avatar-photo-placeholder-vector-illustration-default-profile-picture-avatar-photo-placeholder-vector-189495158.jpg";
-  const ownDp = getCurrentUser().profilePic;
+  const ownDp =getCurrentUser() && getCurrentUser().profilePic
   return (
     <>
       <div className="main-container">
@@ -45,7 +45,7 @@ export function Header() {
           </nav>
         </header>
         <div className="outlet-container">
-          <Outlet context={{ userID: user._id }} />
+          <Outlet context={{ userID: user?._id }} />
         </div>
       </div>
     </>

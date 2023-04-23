@@ -33,6 +33,7 @@ export default function LoginForm({setIsLog}) {
         .then(res => {
             if(res.status === "Success") {
                 setToken(res.token);
+         
                 setCurrentUser(res.user);
                 setLoginUser({
                     email: "",

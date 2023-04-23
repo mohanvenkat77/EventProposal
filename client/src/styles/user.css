@@ -22,6 +22,17 @@
 .cardslist{
   display: flex;
   flex-direction: column;
+  position: relative;
+}
+.del-icon{
+  position: absolute;
+  top:20px;
+  right: 20px;
+  background-color: white;
+font-size: large;
+padding: 5px;
+border-bottom-left-radius: 4px;
+cursor: pointer;
 }
 .headerimg {
   height: auto;

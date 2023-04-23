@@ -5,11 +5,14 @@ import { useNavigate } from 'react-router-dom';
 import BASE_URL from "../../utills/api-utill";
 import { getCurrentUser, getToken } from '../../utills/storage-utills';
 import Scard from "./Scard";
+import { useSelector } from 'react-redux';
 
 const User = () => {
+  const { list } = useSelector((state) => state.selected);
 const navigate=useNavigate()
     const [items,setitems]=useState()
-    const [list, setlist] = useState([]);
+    const [lists, setlists] = useState([]);
+
 
     useEffect(() => {
       if(!getToken() || !getCurrentUser().isUser) return navigate("/");
@@ -24,12 +27,11 @@ const navigate=useNavigate()
     axios
       .get(`${BASE_URL}/singleuser/${getCurrentUser()._id}`)
       .then((res) => {
-    
-        setlist(res.data.data.selected);
+
+        setlists(res.data.data.selected);
       })
       .catch((err) => alert(err.message));
-  }, []);
-
+  }, [list]);
 
 
   return (
@@ -41,7 +43,7 @@ const navigate=useNavigate()
           alt="name"
         />
       </div>
-      {list.length > 0 ? (
+      {lists.length > 0 ? (
         <>
 
           <div className="selcteddiv">
@@ -49,11 +51,9 @@ const navigate=useNavigate()
             <span className="selectedtext">Selected</span>
           </div>
           <div className="slistmain">
-          {list.map((lis) => (
+          {lists.map((lis) => (
             <div className="slist">
-             
                 <Scard items={lis} />
-            
             </div>
           ))}
           </div>

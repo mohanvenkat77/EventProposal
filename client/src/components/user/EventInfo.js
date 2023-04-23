@@ -9,40 +9,43 @@ import axios from "axios";
 
 import { useNavigate, useParams } from "react-router-dom";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import BASE_URL, { singleVendor_api } from "../../utills/api-utill";
 import { getCurrentUser, setCurrentUser } from "../../utills/storage-utills";
 import { selecteditems } from "../../redux/selectedstore";
 const EventInfo = () => {
-  const dispatch=useDispatch()
+  const { list } = useSelector((state) => state.selected);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const params = useParams();
   const [items, setitems] = useState();
-const [vendor,setvendor]=useState()
+  const [vendor, setvendor] = useState();
   useEffect(() => {
     axios
       .get(`${BASE_URL}/proposal/${params.id}`)
       .then((res) => {
         setitems(res.data.proposal);
-     
-        singleVendor_api(res.data.proposal.vendorId).then((res)=> {
-     
-          setvendor(res.data.vendor)}).catch((err)=> alert(err.message))
+
+        singleVendor_api(res.data.proposal.vendorId)
+          .then((res) => {
+            setvendor(res.data.vendor);
+          })
+          .catch((err) => alert(err.message));
       })
       .catch((err) => alert(err.message));
-
   }, []);
-  
 
   const selectbtn = () => {
-    axios.put(`http://localhost:5000/update/${getCurrentUser()._id}`,{
-      "selected":items
-    }).then((res)=>{
-      setCurrentUser(res.data.data)
-      dispatch(selecteditems(res.data.data.selected))
-    }).catch((err)=> alert(err.message))
-    navigate("/user/proposals")
+    axios
+      .put(`http://localhost:5000/update/${getCurrentUser()._id}`, {
+        selected: items,
+      })
+      .then((res) => {
+        dispatch(selecteditems(res.data.data.selected));
+      })
+      .catch((err) => alert(err.message));
+    navigate("/user/proposals");
   };
 
   return (
@@ -63,11 +66,11 @@ const [vendor,setvendor]=useState()
               </button>
             </div>
           </div>
-    
+
           <div className="eventPage">
             <div className="row1">
               <div className="card1">
-                <Card1 items={items} vendor={vendor}/>
+                <Card1 items={items} vendor={vendor} />
               </div>
               <div className="card2">
                 <Card2 items={items} />
@@ -78,7 +81,7 @@ const [vendor,setvendor]=useState()
                 <Venue items={items} />
               </div>
               <div className="contacts">
-                <Contacts vendor={vendor}/>
+                <Contacts vendor={vendor} />
               </div>
             </div>
             <div className="row3">

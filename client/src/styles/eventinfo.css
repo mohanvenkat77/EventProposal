@@ -98,6 +98,7 @@ border: 1px solid #0078DD;
 border-radius: 4px;
 opacity: 1;
 margin-right: 75px;
+cursor: pointer;
 }
 .btn-text{
     top: 142px;

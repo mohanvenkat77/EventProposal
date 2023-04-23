@@ -38,7 +38,7 @@ const EventInfo = () => {
 
   const selectbtn = () => {
     axios
-      .put(`http://localhost:5000/update/${getCurrentUser()._id}`, {
+      .put(`${BASE_URL}/update/${getCurrentUser()._id}`, {
         selected: items,
       })
       .then((res) => {

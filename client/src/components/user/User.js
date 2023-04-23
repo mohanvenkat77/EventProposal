@@ -16,7 +16,7 @@ const navigate=useNavigate()
 
     useEffect(() => {
       if(!getToken() || !getCurrentUser().isUser) return navigate("/");
-      axios.get("http://localhost:5000/proposal").then((res) => {
+      axios.get(`${BASE_URL}/proposal`).then((res) => {
         setitems(res.data.proposals);
       })
       .catch((err) => {

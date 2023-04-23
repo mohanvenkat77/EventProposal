@@ -3,7 +3,7 @@ import { setCurrentUser, setToken } from "../../utills/storage-utills";
 import { useNavigate } from "react-router-dom";
 import { loginToAccount, registerAnAccount } from "../../utills/api-utill";
 
-export default function RegisterForm({setIsLog}) {
+export default function RegisterForm({ setIsLog }) {
     const navigate = useNavigate();
     const [option, setOption] = useState(true);
     const optionCSS = {
@@ -12,7 +12,9 @@ export default function RegisterForm({setIsLog}) {
     };
     const [error, setError] = useState({
         email: "",
-        password: ""
+        password: "",
+        name: "",
+        contact: ""
     });
     const [boo, setBoo] = useState(true);
     const [newUser, setNewUser] = useState({
@@ -26,21 +28,18 @@ export default function RegisterForm({setIsLog}) {
     function onFormSubmit(e) {
         e.preventDefault();
 
-        if(newUser.password !== newUser.confirmPassword) {
+        if (! /^[a-zA-Z ]+$/.test(newUser.name)) {
+            return setError(ex => ({ ...ex, name: "Name must contain alphabets only" }));
+        }
+        if (! /^[0-9]+$/.test(newUser.contact)) {
+            return setError(ex => ({ ...ex, contact: "Contact must contain only numbers" }));
+        }
+        if (newUser.password !== newUser.confirmPassword) {
             return setError(ex => ({ ...ex, password: "Password & confirm password doesn't match!" }));
         }
         setBoo(false);
-        // let formData = {...newUser};
-        // if(option) {
-        //     formData.isVendor = true;
-        //     console.log(formData)
-        // }
-        // else {
-        //     formData.isUser = true;
-        //     formData.selected = [];
-        //     console.log(formData)
-        // }
-        registerAnAccount(newUser, option? "vendor" : "user")
+
+        registerAnAccount(newUser, option ? "vendor" : "user")
             .then(res => {
                 if (res.status === "Success") {
                     setNewUser({
@@ -76,8 +75,12 @@ export default function RegisterForm({setIsLog}) {
                     Register in your Account
                 </p>
                 <div className="field-container reg">
-                    <input type="text" id="name" placeholder="Name" required onChange={e => { setNewUser(ex => ({ ...ex, name: e.target.value })); }} />
+                    <input type="text" id="name" placeholder="Name" required style={error.name ? { border: "1px solid red" } : {}} onChange={e => {
+                        setNewUser(ex => ({ ...ex, name: e.target.value }));
+                        setError(ex => ({ ...ex, name: "" }));
+                    }} />
                 </div>
+                {error.name && <span className="error">*{error.name}</span>}
                 <div className="field-container reg">
                     <input type="email" id="email" placeholder="Email" style={error.email ? { border: "1px solid red" } : {}} required onChange={e => {
                         setNewUser(ex => ({ ...ex, email: e.target.value }));
@@ -86,8 +89,12 @@ export default function RegisterForm({setIsLog}) {
                 </div>
                 {error.email && <span className="error">*{error.email}</span>}
                 <div className="field-container reg">
-                    <input type="number" id="number" placeholder="Contact" required max={9999999999} min={1000000000} onChange={e => { setNewUser(ex => ({ ...ex, contact: e.target.value })); }} />
+                    <input type="text" id="number" placeholder="Contact" required minLength={10} maxLength={10} style={error.contact ? { border: "1px solid red" } : {}} onChange={e => {
+                        setNewUser(ex => ({ ...ex, contact: e.target.value }));
+                        setError(ex => ({ ...ex, contact: "" }));
+                    }} />
                 </div>
+                {error.contact && <span className="error">*{error.contact}</span>}
                 <div className="field-container reg">
                     <input type="password" id="password" placeholder="Password" minLength={8} style={error.password ? { border: "1px solid red" } : {}} required onChange={e => {
                         setNewUser(ex => ({ ...ex, password: e.target.value }));
@@ -96,7 +103,10 @@ export default function RegisterForm({setIsLog}) {
                 </div>
                 {error.password && <span className="error">*{error.password}</span>}
                 <div className="field-container reg">
-                    <input type="password" id="confirmPassword" placeholder="Confirm Password" minLength={8} required onChange={e => { setNewUser(ex => ({ ...ex, confirmPassword: e.target.value })); }} />
+                    <input type="password" id="confirmPassword" placeholder="Confirm Password" minLength={8} style={error.password ? { border: "1px solid red" } : {}} required onChange={e => {
+                        setNewUser(ex => ({ ...ex, confirmPassword: e.target.value }));
+                        setError(ex => ({ ...ex, password: "" }));
+                    }} />
                 </div>
                 <div className="btn-link-container reg">
                     <p className="createLink" onClick={() => setIsLog(true)}>Sign In</p>

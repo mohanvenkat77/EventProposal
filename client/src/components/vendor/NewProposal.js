@@ -16,13 +16,17 @@ export function NewProposal({ setCreate, onAdd, onUpdate, edit, onEdit }) {
         foodPreferences: "",
         events: ""
     });
-    useEffect(() => {
-        if (edit) setFormData({ ...edit });
-    }, []);
     const [boo, setBoo] = useState(true);
     const [imgArray, setImgArray] = useState([]);
+    useEffect(() => {
+        if (edit) {
+            setFormData({ ...edit });
+            setImgArray(edit.images.map(each => `http://localhost:5000/proposal/images/${each}`));
+        }
+    }, []);
 
     function setPreview(files) {
+        setImgArray("");
         for (let i = 0; i < files.length; i++) {
             let url = URL.createObjectURL(files[i]);
             setImgArray(arr => ([...arr, url]));
@@ -79,7 +83,7 @@ export function NewProposal({ setCreate, onAdd, onUpdate, edit, onEdit }) {
                                 <label htmlFor="place">Place of Event</label>
                                 <select id="place" name="placeOfEvent" value={formData.placeOfEvent} onChange={(e) => setFormData(ex => ({ ...ex, placeOfEvent: e.target.value }))}>
                                     <option value={"Select"} >Select</option>
-                                    <option value={"Tamilnadu"} >Chennai</option>
+                                    <option value={"Tamilnadu"} >Tamilnadu</option>
                                     <option value={"Bengaluru"} >Bengaluru</option>
                                     <option value={"Hydrabad"} >Hydrabad</option>
                                     <option value={"Kerala"} >Kerala</option>

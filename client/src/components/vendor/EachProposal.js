@@ -8,7 +8,7 @@ export function EachProposal({ proposal, onDelete, onEdit, setCreate }) {
         <div className="eachProposal-container">
             <section className="top-section">
                 <h1>{eventName}</h1>
-                <p>{description} Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                <p>{description}</p>
             </section>
             <section className="bottom-section">
                 <section className="event-details" >

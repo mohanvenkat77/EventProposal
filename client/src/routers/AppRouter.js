@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Header } from "../components/Header";
-import { VendorProposals } from "../components/vendor/VendorProposals";
+import { VendorProposals } from "../components/VendorProposals";
 import User from "../components/user/User";
 import "../styles/app.css";
 import "../styles/card1.css";

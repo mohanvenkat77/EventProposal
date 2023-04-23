@@ -6,12 +6,12 @@ import { allProposalByVendor_api } from "../../utills/api-utill";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import jwtDecode from "jwt-decode";
 
-import proposalFilter from "../../utills/proposalFilter";
+import { proposalFilter } from "../../utills/proposalFilter";
 import { getCurrentUser, getToken } from "../../utills/storage-utills";
 
 
 export function VendorProposals() {
-    const navigate=useNavigate()
+    const navigate = useNavigate()
     const [create, setCreate] = useState(false);
     const [edit, setEdit] = useState(null);
     const [proposals, setProposals] = useState([]);
@@ -24,15 +24,15 @@ export function VendorProposals() {
         reception: false,
         party: false,
         productLaunch: false,
-        formal : false,
-        inFormal : false,
-        internal : false,
-        external : false,
-        ["0-25000"] : false,
-        ["25001-50000"] : false,
-        ["50001-75000"] : false,
-        ["75001-100000"] : false,
-        ["> 100000"] : false,
+        formal: false,
+        inFormal: false,
+        internal: false,
+        external: false,
+        ["0-25000"]: false,
+        ["25001-50000"]: false,
+        ["50001-75000"]: false,
+        ["75001-100000"]: false,
+        ["> 100000"]: false,
     });
 
     function getProposals() {
@@ -47,7 +47,7 @@ export function VendorProposals() {
     }
 
     useEffect(() => {
-        if(!getToken() || !getCurrentUser().isVendor) return navigate("/");
+        if (!getToken() || !getCurrentUser().isVendor) return navigate("/");
         getProposals();
     }, []);
 

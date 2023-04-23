@@ -14,7 +14,7 @@ const Scard = ({ items }) => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/proposal/${items}`)
+      .get(`${BASE_URL}/proposal/${items}`)
       .then((res) => {
         setsitems([res.data.proposal]);
       })
@@ -23,7 +23,7 @@ const Scard = ({ items }) => {
 
   const delteselect = (id) => {
     axios
-      .put(`http://localhost:5000/delete-list/${getCurrentUser()._id}`, {
+      .put(`${BASE_URL}/delete-list/${getCurrentUser()._id}`, {
         selected: id,
       })
       .then((res) => {

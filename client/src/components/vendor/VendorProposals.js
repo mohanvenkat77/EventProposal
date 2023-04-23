@@ -9,8 +9,8 @@ import jwtDecode from "jwt-decode";
 import { proposalFilter } from "../../utills/proposalFilter";
 import { getCurrentUser, getToken } from "../../utills/storage-utills";
 
-
 export function VendorProposals() {
+
     const navigate = useNavigate()
     const [create, setCreate] = useState(false);
     const [edit, setEdit] = useState(null);
@@ -35,43 +35,41 @@ export function VendorProposals() {
         ["> 100000"]: false,
     });
 
-    function getProposals() {
-        allProposalByVendor_api(getCurrentUser()._id)
-            .then(res => {
-                if (res.status === "Success") {
-                    setProposals(res.proposals);
-                    setOriginal(res.proposals);
-                }
-                else alert(res.message);
-            })
-    }
+  function getProposals() {
+    allProposalByVendor_api(getCurrentUser()._id).then((res) => {
+      if (res.status === "Success") {
+        setProposals(res.proposals);
+        setOriginal(res.proposals);
+      } else alert(res.message);
+    });
+  }
 
     useEffect(() => {
         if (!getToken() || !getCurrentUser().isVendor) return navigate("/");
         getProposals();
     }, []);
 
-    function onFilter(key, val) {
-        let inp = { ...filters, [key]: val };
-        const result = proposalFilter(inp, original);
-        if (!result) getProposals();
-        else {
-            setProposals(result);
-        }
+  function onFilter(key, val) {
+    let inp = { ...filters, [key]: val };
+    const result = proposalFilter(inp, original);
+    if (!result) getProposals();
+    else {
+      setProposals(result);
     }
+  }
 
-    function searchBar(val) {
-        if (val) {
-            setProposals(ex => {
-                return ex.filter(each => {
-                    if (each.eventName.match(new RegExp(val, "i"))) return true
-                    else return false
-                })
-            });
-        } else {
-            getProposals();
-        }
+  function searchBar(val) {
+    if (val) {
+      setProposals((ex) => {
+        return ex.filter((each) => {
+          if (each.eventName.match(new RegExp(val, "i"))) return true;
+          else return false;
+        });
+      });
+    } else {
+      getProposals();
     }
+  }
     return <>
         <div className="vendor-proposals-container">
             <header id="vendors-header">
@@ -202,30 +200,40 @@ export function VendorProposals() {
                 </section>
             </header>
 
-            {
-                proposals.map(proposal => {
-                    return <EachProposal key={proposal._id} proposal={proposal}
-                        onDelete={(id) => {
-                            setProposals(proposals.filter(({ _id }) => {
-                                return id !== _id;
-                            }))
-                        }}
-                        onEdit={(data) => setEdit(data)}
-                        setCreate={setCreate}
-                    />
-                })
-            }
-        </div>
-        {create && <NewProposal
-            setCreate={setCreate}
-            onAdd={(data) => setProposals([...proposals, data])}
-            onUpdate={(data) => setProposals(ex => {
-                return ex.map(each => {
-                    if (each._id === data._id) return data;
-                    else return each;
-                })
-            })}
-            edit={edit}
-            onEdit={() => setEdit(null)} />}
+        {proposals.map((proposal) => {
+          return (
+            <EachProposal
+              key={proposal._id}
+              proposal={proposal}
+              onDelete={(id) => {
+                setProposals(
+                  proposals.filter(({ _id }) => {
+                    return id !== _id;
+                  })
+                );
+              }}
+              onEdit={(data) => setEdit(data)}
+              setCreate={setCreate}
+            />
+          );
+        })}
+      </div>
+      {create && (
+        <NewProposal
+          setCreate={setCreate}
+          onAdd={(data) => setProposals([...proposals, data])}
+          onUpdate={(data) =>
+            setProposals((ex) => {
+              return ex.map((each) => {
+                if (each._id === data._id) return data;
+                else return each;
+              });
+            })
+          }
+          edit={edit}
+          onEdit={() => setEdit(null)}
+        />
+      )}
     </>
+  );
 }

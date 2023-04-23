@@ -70,3 +70,4 @@ export const proposalFilter = (filters, proposals) => {
         return arr;
     } else return false;
 }
+

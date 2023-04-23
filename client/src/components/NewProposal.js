@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import BASE_URL, { editProposal_api, newProposal_api } from "../../utills/api-utill";
+import BASE_URL, { editProposal_api, newProposal_api } from "../utills/api-utill";
 import { useOutletContext } from "react-router-dom";
 
 export function NewProposal({ setCreate, onAdd, onUpdate, edit, onEdit }) {

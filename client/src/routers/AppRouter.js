@@ -24,6 +24,7 @@ export function AppRouter() {
     <>
       <BrowserRouter>
         <Routes>
+          <Route path="*" element={<h1>404 PAGE NOT FOUND!</h1>} />
           <Route path="/" element={<Home />} />
           <Route path="/vendor" element={<Header />}>
             <Route path="proposals" element={<VendorProposals />} />

@@ -235,5 +235,4 @@ export function VendorProposals() {
         />
       )}
     </>
-  );
 }

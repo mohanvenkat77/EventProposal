@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { EachProposal } from "./EachProposal";
 import { NewProposal } from "./NewProposal";
-import { allProposalByVendor_api } from "../utills/api-utill";
+import { allProposalByVendor_api } from "../../utills/api-utill";
 
 import { useNavigate, useOutletContext } from "react-router-dom";
 import jwtDecode from "jwt-decode";
 
-import { proposalFilter } from "../utills/proposalFilter";
-import { getCurrentUser, getToken } from "../utills/storage-utills";
-import search from "../images/search.svg";
+import { proposalFilter } from "../../utills/proposalFilter";
+import { getCurrentUser, getToken } from "../../utills/storage-utills";
+import search from "../../images/search.svg";
 
 
 export function VendorProposals() {
@@ -87,7 +87,7 @@ export function VendorProposals() {
                 </section>
                 <section className="right-section" id="filter">
                     <div className="img-container" onClick={() => setShowfilters(!showfilters)}>
-                        <img src={require("../images/1608702_filter_icon (1).svg").default} />
+                        <img src={require("../../images/1608702_filter_icon (1).svg").default} />
                     </div>
                     {showfilters && <ul>
                         <li>Event-Type</li>

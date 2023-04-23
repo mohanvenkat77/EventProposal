@@ -53,7 +53,7 @@ export function EachProposal({ proposal, onDelete, onEdit, setCreate }) {
                                     .then(res => {
                                         if (res.status === "Success") onDelete(_id);
                                         else {
-                                            console.log(res.message)
+                                           
                                             alert("Error occured, Please try again!")
                                         }
                                     })

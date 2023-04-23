@@ -30,16 +30,7 @@ export default function RegisterForm({setIsLog}) {
             return setError(ex => ({ ...ex, password: "Password & confirm password doesn't match!" }));
         }
         setBoo(false);
-        // let formData = {...newUser};
-        // if(option) {
-        //     formData.isVendor = true;
-        //     console.log(formData)
-        // }
-        // else {
-        //     formData.isUser = true;
-        //     formData.selected = [];
-        //     console.log(formData)
-        // }
+
         registerAnAccount(newUser, option? "vendor" : "user")
             .then(res => {
                 if (res.status === "Success") {

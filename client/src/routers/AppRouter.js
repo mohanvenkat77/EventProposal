@@ -20,17 +20,20 @@ import EventInfo from "../components/user/EventInfo";
 import Home from "../components/LoginAndRegister/Home";
 
 export function AppRouter() {
-  return <>
+  return (
+    <>
       <BrowserRouter>
-      <Header/>
         <Routes>
-          <Route path="/" element={<Home/>} />
+          <Route path="/" element={<Home />} />
           <Route path="/vendor" element={<Header />}>
             <Route path="proposals" element={<VendorProposals />} />
           </Route>
-            <Route path="/user/proposals" element={<User />} />
-          <Route path="/user/:id" element={<EventInfo />} />
+          <Route path="/user" element={<Header />}>
+            <Route path="proposals" element={<User />} />
+            <Route path="proposals/:id" element={<EventInfo />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </>
+  );
 }

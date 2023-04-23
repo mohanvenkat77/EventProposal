@@ -17,17 +17,20 @@ const navigate=useNavigate()
         setitems(res.data.proposals);
       })
       .catch((err) => {
-        console.log(err);
+        alert(err.message);
       });
 
+
     axios
-      .get(`${BASE_URL}/singleuser/${user.user.id}`)
+      .get(`${BASE_URL}/singleuser/${getCurrentUser()._id}`)
       .then((res) => {
-        console.log(res.data.data.selected);
+    
         setlist(res.data.data.selected);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => alert(err.message));
   }, []);
+
+
 
   return (
     <div>
@@ -40,7 +43,7 @@ const navigate=useNavigate()
       </div>
       {list.length > 0 ? (
         <>
-          {console.log(list)}
+
           <div className="selcteddiv">
             {" "}
             <span className="selectedtext">Selected</span>
@@ -56,7 +59,6 @@ const navigate=useNavigate()
           </div>
         </>
       ) : null}
-      {/* {items? <Scard items={list}/>:null} */}
       <div className="proposals">
         <p>Proposals</p>
       </div>

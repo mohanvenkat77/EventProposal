@@ -36,7 +36,6 @@ const vendorRegister = async (req, res) => {
         newUser = await newUser.save();
         res.status(201).json({ status: "Success", user: newUser });
     } catch (err) {
-        console.log(err.message)
         res.status(400).json({ status: "Failed", message: err.message });
     }
 }

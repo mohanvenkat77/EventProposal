@@ -5,11 +5,14 @@ import { useNavigate } from 'react-router-dom';
 import BASE_URL from "../../utills/api-utill";
 import { getCurrentUser, getToken } from '../../utills/storage-utills';
 import Scard from "./Scard";
+import { useSelector } from 'react-redux';
 
 const User = () => {
+  const { list } = useSelector((state) => state.selected);
 const navigate=useNavigate()
     const [items,setitems]=useState()
-    const [list, setlist] = useState([]);
+    const [lists, setlists] = useState([]);
+
 
     useEffect(() => {
       if(!getToken() || !getCurrentUser().isUser) return navigate("/");
@@ -17,17 +20,19 @@ const navigate=useNavigate()
         setitems(res.data.proposals);
       })
       .catch((err) => {
-        console.log(err);
+        alert(err.message);
       });
-console.log(getCurrentUser()._id)
+
+
     axios
       .get(`${BASE_URL}/singleuser/${getCurrentUser()._id}`)
       .then((res) => {
-        console.log(res.data.data.selected);
-        setlist(res.data.data.selected);
+
+        setlists(res.data.data.selected);
       })
-      .catch((err) => console.log(err));
-  }, []);
+      .catch((err) => alert(err.message));
+  }, [list]);
+
 
   return (
     <div>
@@ -38,25 +43,22 @@ console.log(getCurrentUser()._id)
           alt="name"
         />
       </div>
-      {list.length > 0 ? (
+      {lists.length > 0 ? (
         <>
-          {console.log(list)}
+
           <div className="selcteddiv">
             {" "}
             <span className="selectedtext">Selected</span>
           </div>
           <div className="slistmain">
-          {list.map((lis) => (
+          {lists.map((lis) => (
             <div className="slist">
-             
                 <Scard items={lis} />
-            
             </div>
           ))}
           </div>
         </>
       ) : null}
-      {/* {items? <Scard items={list}/>:null} */}
       <div className="proposals">
         <p>Proposals</p>
       </div>

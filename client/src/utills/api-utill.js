@@ -11,6 +11,12 @@ export function allProposal_api() {
         .then(res => res)
         .catch(err => alert("FROM SERVER : " + err.message));
 }
+// single vendor
+export function singleVendor_api(id) {
+    return axios.get(`${BASE_URL}/vendor/${id}`)
+        .then(res => res)
+        .catch(err => alert("FROM SERVER : " + err.message));
+}
 
 //TO GET ALL PROPOSALS (SPECIFIC)
 export function allProposalByVendor_api(id) {

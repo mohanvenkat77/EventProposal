@@ -1,21 +1,24 @@
 import { createSlice, current } from "@reduxjs/toolkit";
-import axios from "axios";
+
 
 const initialState = {
     list:[]
 };
 
 const authSLice = createSlice({
-  name: "auth",
+  name: "selectedlist",
   initialState,
   reducers: {
     selecteditems(state, action) {
-        console.log("store",action.payload);
-        console.log("store",current(state.list));
         state.list.push(...action.payload)
     },
+    deleteditems(state,action){
+
+      const newl=state.list.splice(1,action.payload)
+      state.list=action.payload
+    }
   },
 });
 
-export const { selecteditems } = authSLice.actions;
+export const { selecteditems,deleteditems } = authSLice.actions;
 export default authSLice.reducer;

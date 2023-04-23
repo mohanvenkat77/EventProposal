@@ -1,7 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import BASE_URL from "../../utills/api-utill";
-import EventInfo from "./EventInfo";
 const CardItem = ({ key,id,imageSrc, title, price, locatioin }) => {
   const navigate = useNavigate();
 

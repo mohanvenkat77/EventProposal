@@ -6,40 +6,46 @@ import Events from "./Events";
 import Food from "./Food";
 import Venue from "./Venue";
 import axios from "axios";
-import jwtDecode from "jwt-decode";
-import { useNavigate, useParams } from "react-router-dom";
-import Selected from "./Selected";
-import CardList from "./CardList";
-import CardItem from "./CardItem";
-import { useDispatch } from "react-redux";
 
-import BASE_URL from "../../utills/api-utill";
-import { getCurrentUser } from "../../utills/storage-utills";
+import { useNavigate, useParams } from "react-router-dom";
+
+import { useDispatch, useSelector } from "react-redux";
+
+import BASE_URL, { singleVendor_api } from "../../utills/api-utill";
+import { getCurrentUser, setCurrentUser } from "../../utills/storage-utills";
 import { selecteditems } from "../../redux/selectedstore";
 const EventInfo = () => {
-  const dispatch=useDispatch()
+  const { list } = useSelector((state) => state.selected);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const params = useParams();
   const [items, setitems] = useState();
-
+  const [vendor, setvendor] = useState();
   useEffect(() => {
     axios
       .get(`${BASE_URL}/proposal/${params.id}`)
       .then((res) => {
         setitems(res.data.proposal);
-        console.log(res.data.proposal);
+
+        singleVendor_api(res.data.proposal.vendorId)
+          .then((res) => {
+            setvendor(res.data.vendor);
+          })
+          .catch((err) => alert(err.message));
       })
-      .catch((err) => console.log(err));
+      .catch((err) => alert(err.message));
   }, []);
-  
 
   const selectbtn = () => {
-    axios.put(`http://localhost:5000/update/${getCurrentUser()._id}`,{
-      "selected":items
-    }).then((res)=>{
-      dispatch(selecteditems(res.data.data.selected))
-    }).catch((err)=> console.log(err))
-    navigate("/user/proposals")
+    axios
+      .put(`http://localhost:5000/update/${getCurrentUser()._id}`, {
+        selected: items,
+      })
+      .then((res) => {
+        dispatch(selecteditems(res.data.data.selected));
+      })
+      .catch((err) => alert(err.message));
+    navigate("/user/proposals");
   };
 
   return (
@@ -50,8 +56,8 @@ const EventInfo = () => {
             <div className="event-data">
               {" "}
               <span className="col1-proposals">Proposals</span>{" "}
-              <span className="col1-icon"></span>{" "}
-              <span className="col1-contract">Jordan Contract</span>
+              <span className="col1-icon">{"<"}</span>{" "}
+              <span className="col1-contract">{vendor?.name}</span>
             </div>
             <div>
               <button className="btn select-btn" onClick={selectbtn}>
@@ -60,11 +66,11 @@ const EventInfo = () => {
               </button>
             </div>
           </div>
-    
+
           <div className="eventPage">
             <div className="row1">
               <div className="card1">
-                <Card1 items={items} />
+                <Card1 items={items} vendor={vendor} />
               </div>
               <div className="card2">
                 <Card2 items={items} />
@@ -75,7 +81,7 @@ const EventInfo = () => {
                 <Venue items={items} />
               </div>
               <div className="contacts">
-                <Contacts />
+                <Contacts vendor={vendor} />
               </div>
             </div>
             <div className="row3">

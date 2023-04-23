@@ -16,7 +16,6 @@ const uploadImages = async (req, res, next) => {
         let { images } = req.body;
         if (!images) return next();
         let imageUrls = [];
-        console.log(images)
         for (let i = 0; i < images.length; i++) {
             convertBase64(images[i])
                 .then(res => {

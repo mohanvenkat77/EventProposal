@@ -1,12 +1,11 @@
 import React from 'react';
-import {useNavigate} from 'react-router-dom'
+
 import BASE_URL from '../../utills/api-utill';
-import EventInfo from './EventInfo';
-const Card1 = ({items}) => {
+
+const Card1 = ({items,vendor}) => {
     const { _id,images,eventName,From,To,eventType,eventclass="Class A",}=items
 
   const EventHandler=()=>{
-    // navigate(<EventInfo/>)
   }
   return (
     <div className="card1-item"   onClick={EventHandler}>
@@ -15,7 +14,7 @@ const Card1 = ({items}) => {
         <div className='card1-body'>
       <p> <span className='namespan'>Name</span> <span  className='card1-name'>{eventName}</span></p>
 
-      <p> <span className='emailspan'>Email</span> <span  className='card1-email'>{}</span></p>
+      <p> <span className='emailspan'>Email</span> <span  className='card1-email'>{vendor?.email}</span></p>
 
       <div className='card1-dates'>
       <p> <span className='Datespan'>Start Date</span> <span  className='card1-date'>{From}</span></p>

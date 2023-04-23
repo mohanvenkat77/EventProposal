@@ -1,29 +1,19 @@
 import React from 'react'
 
-const Contacts = () => {
+const Contacts = ({vendor}) => {
+  const defaultDp = "https://thumbs.dreamstime.com/b/default-profile-picture-avatar-photo-placeholder-vector-illustration-default-profile-picture-avatar-photo-placeholder-vector-189495158.jpg";
+  const ownDp = vendor?.profilePic;
+
   return (
     <div>
       <div className='con-text'>Contacts | 12</div>
 
       <div className='con-list'>
      <div className='contact'>
-      <div className='con-img' ><img className='con-img1' src="" alt="avatar"/></div>
+      <div className='con-img' ><img className='con-img1' src={ownDp? `http://localhost:5000/profile-images/${ownDp}`: defaultDp} alt="avatar"/></div>
      <div className='con-name'>contact1</div>
-        <div className='con-num'>+91 xxxxxxxxxxxx</div>
+        <div className='con-num'>{vendor?.contact}</div>
      </div>
-
-     <div className='contact'>
-     <div className='con-img' ><img  className='con-img1' src="" alt="avatar"/></div>
-     <div className='con-name'>contact1</div>
-        <div className='con-num'>+91 xxxxxxxxxxxx</div>
-     </div>
-
-     <div className='contact'>
-     <div className='con-img' ><img className='con-img1'  src="" alt="avatar"/></div>
-     <div className='con-name'>contact1</div>
-        <div className='con-num'>+91 xxxxxxxxxxxx</div>
-     </div>
-     
       </div>
     </div>
   )

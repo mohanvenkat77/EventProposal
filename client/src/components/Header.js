@@ -45,7 +45,7 @@ export function Header() {
           </nav>
         </header>
         <div className="outlet-container">
-          <Outlet context={{ userID: user._id }} />
+          <Outlet context={{ userID: user?._id }} />
         </div>
       </div>
     </>

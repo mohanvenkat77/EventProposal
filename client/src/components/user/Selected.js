@@ -1,12 +1,9 @@
 import React from 'react';
-import {useNavigate} from 'react-router-dom'
+
 import BASE_URL from '../../utills/api-utill';
-import EventInfo from './EventInfo';
 const Selected = ({items}) => {
     const { _id,images,eventName,From,To,eventType,eventclass="Class A",}=items
-console.log(items)  // const navigate=useNavigate()
   const EventHandler=()=>{
-    // navigate(<EventInfo/>)
   }
   return (
     <div className="card1-item"   onClick={EventHandler}>

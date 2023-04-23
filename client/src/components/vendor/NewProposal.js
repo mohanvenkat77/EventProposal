@@ -32,7 +32,7 @@ export function NewProposal({ setCreate, onAdd, onUpdate, edit, onEdit }) {
             setImgArray(arr => ([...arr, url]));
         }
     }
-    const {userID} = useOutletContext();
+    const { userID } = useOutletContext();
     function formSubmission(e) {
         e.preventDefault();
         setBoo(false);
@@ -41,9 +41,11 @@ export function NewProposal({ setCreate, onAdd, onUpdate, edit, onEdit }) {
         if (!edit) {
             newProposal_api(result)
                 .then(res => {
-                    onAdd(res.proposal);
-                    setCreate(false);
-                    setBoo(true);
+                    if (res.status === "Success") {
+                        onAdd(res.proposal);
+                        setCreate(false);
+                        setBoo(true);
+                    } else alert(res.message);
                 })
                 .catch(err => {
                     setBoo(true);
@@ -52,10 +54,12 @@ export function NewProposal({ setCreate, onAdd, onUpdate, edit, onEdit }) {
         } else {
             editProposal_api(result, edit._id)
                 .then(res => {
-                    onUpdate(res.proposal);
-                    onEdit(null);
-                    setCreate(false);
-                    setBoo(true);
+                    if (res.status === "Success") {
+                        onUpdate(res.proposal);
+                        onEdit(null);
+                        setCreate(false);
+                        setBoo(true);
+                    } else alert(res.message);
                 })
                 .catch(err => {
                     setBoo(true);
@@ -173,7 +177,7 @@ export function NewProposal({ setCreate, onAdd, onUpdate, edit, onEdit }) {
                     </div>
                 </div>
                 <div className="button-field">
-                    <button type="submit">{boo ? (edit? "Edit" : "ADD") : <span className="loader"></span>}</button>
+                    <button type="submit">{boo ? (edit ? "Edit" : "ADD") : <span className="loader"></span>}</button>
                 </div>
 
             </form>

@@ -38,12 +38,12 @@ export function EachProposal({ proposal, onDelete, onEdit, setCreate }) {
                         onEdit(proposal);
                         setCreate(true);
                     }}>
-                        <img src={require("../../images/pencil-edit-button.svg").default} />
+                        <img src={"/pencil-edit-button.svg"} />
                     </div>
                     <div className="img-container" onClick={() => {
                         setConfirmDelete(true)
                     }}>
-                        <img src={require("../../images/bin.svg").default} />
+                        <img src={"/bin.svg"} />
                     </div>
                     {confirmDelete && <div className="delete-confirmation" >
                         <p>Are you sure!<br /> Do you want to delete?</p>

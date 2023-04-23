@@ -39,7 +39,7 @@ const navigate=useNavigate()
       <div>
         <img
           className="headerimg"
-          src={require("../../images/party2x.jpg")}
+          src={"/party2x.jpg"}
           alt="name"
         />
       </div>

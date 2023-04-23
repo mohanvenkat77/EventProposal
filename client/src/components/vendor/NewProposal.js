@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { editProposal_api, newProposal_api } from "../../utills/api-utill";
+import BASE_URL, { editProposal_api, newProposal_api } from "../../utills/api-utill";
 import { useOutletContext } from "react-router-dom";
 
 export function NewProposal({ setCreate, onAdd, onUpdate, edit, onEdit }) {
@@ -21,7 +21,7 @@ export function NewProposal({ setCreate, onAdd, onUpdate, edit, onEdit }) {
     useEffect(() => {
         if (edit) {
             setFormData({ ...edit });
-            setImgArray(edit.images.map(each => `http://localhost:5000/proposal/images/${each}`));
+            setImgArray(edit.images.map(each => `${BASE_URL}/proposal/images/${each}`));
         }
     }, []);
 

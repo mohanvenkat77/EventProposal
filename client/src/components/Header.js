@@ -5,6 +5,7 @@ import HeaderCard from "./HeaderCard";
 import Card1 from "./user/Card1";
 import { deleteCurrentUser, deleteToken, getCurrentUser, getToken } from "../utills/storage-utills";
 import UpdateDp from "./UpdateDp";
+import BASE_URL from "../utills/api-utill";
 
 export function Header() {
   const navigate = useNavigate()
@@ -33,7 +34,7 @@ export function Header() {
             <p>{user.name}</p>
             <div className="img-container">
               <img
-                src={ownDp? `http://localhost:5000/profile-images/${ownDp}` : defaultDp}
+                src={ownDp? `${BASE_URL}/profile-images/${ownDp}` : defaultDp}
                 alt="dp"
                 onClick={About}
               />

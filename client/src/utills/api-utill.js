@@ -2,7 +2,7 @@ import axios from "axios";
 import { getToken } from "./storage-utills";
 
 
-const BASE_URL = "http://localhost:5000";
+export const BASE_URL = "http://localhost:5000";
 
 
 //TO GET ALL PROPOSALS

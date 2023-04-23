@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import { deleteProposalByVendor_api } from "../../utills/api-utill";
-import pencileditbutton from "../../images/pencil-edit-button.svg";
-// import bin from "../../../public/bin.svg";
 
 export function EachProposal({ proposal, onDelete, onEdit, setCreate }) {
     const { eventName, placeOfEvent, proposalType, eventType, budget, From, To, _id, foodPreferences, events, description } = proposal;
@@ -40,7 +38,7 @@ export function EachProposal({ proposal, onDelete, onEdit, setCreate }) {
                         onEdit(proposal);
                         setCreate(true);
                     }}>
-                        <img src={pencileditbutton} />
+                        <img src={"/pencil-edit-button.svg"} />
                     </div>
                     <div className="img-container" onClick={() => {
                         setConfirmDelete(true)

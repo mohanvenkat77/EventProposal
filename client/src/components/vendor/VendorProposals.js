@@ -8,6 +8,7 @@ import jwtDecode from "jwt-decode";
 
 import { proposalFilter } from "../../utills/proposalFilter";
 import { getCurrentUser, getToken } from "../../utills/storage-utills";
+import search from "../../images/search.svg";
 
 
 export function VendorProposals() {
@@ -79,7 +80,7 @@ export function VendorProposals() {
                     <h1>Proposals</h1>
 
                     <div className="img-container">
-                        <img src={require("../../images/search.svg").default} />
+                        <img src={search} />
                     </div>
                     <input className="search-input" placeholder="search projects..." onChange={e => searchBar(e.target.value)} />
 

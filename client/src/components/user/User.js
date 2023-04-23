@@ -6,6 +6,7 @@ import BASE_URL from "../../utills/api-utill";
 import { getCurrentUser, getToken } from '../../utills/storage-utills';
 import Scard from "./Scard";
 import { useSelector } from 'react-redux';
+import party2x from "../.././images/party2x.jpg";
 
 const User = () => {
   const { list } = useSelector((state) => state.selected);
@@ -39,7 +40,7 @@ const navigate=useNavigate()
       <div>
         <img
           className="headerimg"
-          src={require("../../images/party2x.jpg")}
+          src={party2x}
           alt="name"
         />
       </div>

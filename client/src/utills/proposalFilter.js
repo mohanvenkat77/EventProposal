@@ -1,4 +1,4 @@
-const proposalFilter = (filters, proposals) => {
+export const proposalFilter = (filters, proposals) => {
     const {wedding, birthday, reception, charity, party, productLaunch, 
     formal, inFormal, internal, external} = filters;
     let arr = [];
@@ -71,4 +71,3 @@ const proposalFilter = (filters, proposals) => {
     } else return false;
 }
 
-module.exports = proposalFilter;

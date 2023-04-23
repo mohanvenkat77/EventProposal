@@ -75,7 +75,7 @@ export default function RegisterForm({ setIsLog }) {
                     Register in your Account
                 </p>
                 <div className="field-container reg">
-                    <input type="text" id="name" placeholder="Name" required onChange={e => {
+                    <input type="text" id="name" placeholder="Name" required style={error.name ? { border: "1px solid red" } : {}} onChange={e => {
                         setNewUser(ex => ({ ...ex, name: e.target.value }));
                         setError(ex => ({ ...ex, name: "" }));
                     }} />
@@ -89,7 +89,7 @@ export default function RegisterForm({ setIsLog }) {
                 </div>
                 {error.email && <span className="error">*{error.email}</span>}
                 <div className="field-container reg">
-                    <input type="text" id="number" placeholder="Contact" required minLength={10} maxLength={10} onChange={e => {
+                    <input type="text" id="number" placeholder="Contact" required minLength={10} maxLength={10} style={error.contact ? { border: "1px solid red" } : {}} onChange={e => {
                         setNewUser(ex => ({ ...ex, contact: e.target.value }));
                         setError(ex => ({ ...ex, contact: "" }));
                     }} />
@@ -103,7 +103,10 @@ export default function RegisterForm({ setIsLog }) {
                 </div>
                 {error.password && <span className="error">*{error.password}</span>}
                 <div className="field-container reg">
-                    <input type="password" id="confirmPassword" placeholder="Confirm Password" minLength={8} required onChange={e => { setNewUser(ex => ({ ...ex, confirmPassword: e.target.value })); }} />
+                    <input type="password" id="confirmPassword" placeholder="Confirm Password" minLength={8} style={error.password ? { border: "1px solid red" } : {}} required onChange={e => {
+                        setNewUser(ex => ({ ...ex, confirmPassword: e.target.value }));
+                        setError(ex => ({ ...ex, password: "" }));
+                    }} />
                 </div>
                 <div className="btn-link-container reg">
                     <p className="createLink" onClick={() => setIsLog(true)}>Sign In</p>

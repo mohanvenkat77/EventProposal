@@ -13,7 +13,7 @@ export function Header() {
   const [profile, setProfile] = useState(false);
   
   useEffect(() => {
-    if (!getToken()) return navigate("/");
+    if (!getToken() || !getCurrentUser()) return navigate("/");
     setUser(getCurrentUser());
   }, []);
 
@@ -23,7 +23,7 @@ export function Header() {
 
 
   const defaultDp = "https://thumbs.dreamstime.com/b/default-profile-picture-avatar-photo-placeholder-vector-illustration-default-profile-picture-avatar-photo-placeholder-vector-189495158.jpg";
-  const ownDp = getCurrentUser().profilePic;
+  const ownDp = getCurrentUser() && getCurrentUser().profilePic;
   return (
     <>
       <div className="main-container">

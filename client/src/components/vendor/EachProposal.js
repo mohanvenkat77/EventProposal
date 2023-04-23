@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { deleteProposalByVendor_api } from "../../utills/api-utill";
 import pencileditbutton from "../../images/pencil-edit-button.svg";
-import bin from "../../images/bin.svg";
+import bin from "../images/bin.svg";
 
 export function EachProposal({ proposal, onDelete, onEdit, setCreate }) {
     const { eventName, placeOfEvent, proposalType, eventType, budget, From, To, _id, foodPreferences, events, description } = proposal;

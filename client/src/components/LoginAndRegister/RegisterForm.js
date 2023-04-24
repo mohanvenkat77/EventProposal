@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { setCurrentUser, setToken } from "../../utills/storage-utills";
 import { useNavigate } from "react-router-dom";
 import { loginToAccount, registerAnAccount } from "../../utills/api-utill";
-
+import { toast } from "react-toastify";
 export default function RegisterForm({ setIsLog }) {
     const navigate = useNavigate();
     const [option, setOption] = useState(true);
@@ -42,6 +42,12 @@ export default function RegisterForm({ setIsLog }) {
         registerAnAccount(newUser, option ? "vendor" : "user")
             .then(res => {
                 if (res.status === "Success") {
+                    if(option) toast.success("Vendor Registration successfully",{
+                        position:"bottom-right"
+                    }) 
+                    else toast.success("User Registration successfully",{
+                        position:"bottom-right"
+                    })
                     setNewUser({
                         name: "",
                         email: "",

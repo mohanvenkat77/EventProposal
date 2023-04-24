@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { deleteProposalByVendor_api } from "../../utills/api-utill";
-
+import { toast } from "react-toastify";
 export function EachProposal({ proposal, onDelete, onEdit, setCreate }) {
     const { eventName, placeOfEvent, proposalType, eventType, budget, From, To, _id, foodPreferences, events, description } = proposal;
     const [confirmDelete, setConfirmDelete] = useState(false);
@@ -51,7 +51,13 @@ export function EachProposal({ proposal, onDelete, onEdit, setCreate }) {
                             <button onClick={() => {
                                 deleteProposalByVendor_api(_id)
                                     .then(res => {
-                                        if (res.status === "Success") onDelete(_id);
+                                        if (res.status === "Success") {
+                                             
+                                                toast.info(`${eventName} has been deleted`,{
+                                                     position:"bottom-right"
+                                                 }) 
+                                            onDelete(_id)
+                                        }
                                         else {
                                            
                                             alert("Error occured, Please try again!")

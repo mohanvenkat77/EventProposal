@@ -47,7 +47,8 @@ export default function RegisterForm({ setIsLog }) {
                         email: "",
                         password: "",
                         contact: "",
-                        confirmPassword: ""
+                        confirmPassword: "",
+                        secret : ""
                     });
                     setBoo(true);
                     setIsLog(true);
@@ -106,6 +107,11 @@ export default function RegisterForm({ setIsLog }) {
                     <input type="password" id="confirmPassword" placeholder="Confirm Password" minLength={8} style={error.password ? { border: "1px solid red" } : {}} required onChange={e => {
                         setNewUser(ex => ({ ...ex, confirmPassword: e.target.value }));
                         setError(ex => ({ ...ex, password: "" }));
+                    }} />
+                </div>
+                <div className="field-container reg">
+                    <input type="text" id="secret" placeholder="Secret word for password reset" required onChange={e => {
+                        setNewUser(ex => ({ ...ex, secret: e.target.value }));
                     }} />
                 </div>
                 <div className="btn-link-container reg">

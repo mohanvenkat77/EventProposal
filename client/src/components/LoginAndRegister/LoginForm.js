@@ -3,7 +3,7 @@ import { getCurrentUser, getToken, setCurrentUser, setToken } from "../../utills
 import { useNavigate } from "react-router-dom";
 import { loginToAccount } from "../../utills/api-utill";
 
-export default function LoginForm({setIsLog}) {
+export default function LoginForm({setIsLog, setIsreset}) {
     const navigate = useNavigate();
     const [option, setOption] = useState(true);
     const optionCSS = {
@@ -78,7 +78,7 @@ export default function LoginForm({setIsLog}) {
                     setError(ex => ({...ex, password : ""}));
                 }}/>
                 </div>
-                <p className="forget">Forget Password?</p>
+                <p className="forget" onClick={() => setIsreset(false)}>Forget Password?</p>
                 {error.password && <span className="error">*{error.password}</span>}
                 <div className="btn-link-container margin">
                     <p className="createLink" onClick={() => setIsLog(false)}>Create Account</p>

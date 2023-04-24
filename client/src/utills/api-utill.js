@@ -107,5 +107,33 @@ export function updateUserDp(dp, id, boolean) {
         .catch(err => alert(err.message));
 }
 
+//TO CHECK SECRET
+export function secretCheck(data, boolean) {
+    return fetch(`${BASE_URL}/${boolean}/secret-check`, {
+        method: "POST",
+        headers: {
+            "content-type": "application/json",
+            "accept": "application/json"
+        },
+        body: JSON.stringify(data)
+    })
+        .then(res => res.json())
+        .catch(err => alert("FROM SERVER : " + err.message));
+}
+
+//TO RESET PASSWORD
+export function passwordReset(data, boolean) {
+    return fetch(`${BASE_URL}/${boolean}/password-reset`, {
+        method: "put",
+        headers: {
+            "content-type": "application/json",
+            "accept": "application/json"
+        },
+        body: JSON.stringify(data)
+    })
+        .then(res => res.json())
+        .catch(err => alert("FROM SERVER : " + err.message));
+}
+
 export default BASE_URL;
 

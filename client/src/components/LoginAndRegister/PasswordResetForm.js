@@ -185,7 +185,7 @@ export default function PasswordResetForm({ setIsreset }) {
               />
             </div>
             <div className="btn-link-container margin">
-              <p className="createLink" onClick={() => setIsreset(false)}>
+              <p className="createLink" onClick={() => setIsreset(true)}>
                 Sign In
               </p>
               <button type="submit">

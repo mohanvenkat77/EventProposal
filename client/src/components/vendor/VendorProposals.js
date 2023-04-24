@@ -67,7 +67,7 @@ export function VendorProposals() {
         });
       });
     } else {
-      getProposals();
+      setProposals(original);
     }
   }
   return <>

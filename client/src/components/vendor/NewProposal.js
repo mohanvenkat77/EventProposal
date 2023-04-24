@@ -33,8 +33,26 @@ export function NewProposal({ setCreate, onAdd, onUpdate, edit, onEdit }) {
         }
     }
     const { userID } = useOutletContext();
+
+    const [error, setError] = useState({
+        placeOfEvent: "",
+        proposalType: "",
+        eventType: "",
+    });
+
     function formSubmission(e) {
         e.preventDefault();
+    
+        if (!formData.placeOfEvent || formData.placeOfEvent === "Select" ) {
+            return setError(ex => ({ ...ex, placeOfEvent: "Place of Event required!" }));
+        }
+        if (!formData.proposalType || formData.proposalType === "Select" ) {
+            return setError(ex => ({ ...ex, proposalType: "Proposal Type required!" }));
+        }
+        if (!formData.eventType || formData.eventType === "Select" ) {
+            return setError(ex => ({ ...ex, eventType: "Event Type required!" }));
+        }
+
         setBoo(false);
         let result = new FormData(e.target);
         result.append("vendorId", userID)
@@ -93,7 +111,10 @@ export function NewProposal({ setCreate, onAdd, onUpdate, edit, onEdit }) {
                         <div className="type-field">
                             <div className="type">
                                 <label htmlFor="place">Place of Event</label>
-                                <select id="place" name="placeOfEvent" value={formData.placeOfEvent} onChange={(e) => setFormData(ex => ({ ...ex, placeOfEvent: e.target.value }))}>
+                                <select id="place" name="placeOfEvent" value={formData.placeOfEvent} onChange={(e) => {
+                                    setFormData(ex => ({ ...ex, placeOfEvent: e.target.value }));
+                                    setError(ex => ({ ...ex, placeOfEvent: "" }));
+                                    }}>
                                     <option value={"Select"} >Select</option>
                                     <option value={"Tamilnadu"} >Tamilnadu</option>
                                     <option value={"Bengaluru"} >Bengaluru</option>
@@ -105,7 +126,10 @@ export function NewProposal({ setCreate, onAdd, onUpdate, edit, onEdit }) {
                             </div>
                             <div className="type">
                                 <label htmlFor="proposalType">Proposal Type</label>
-                                <select id="proposalType" name="proposalType" value={formData.proposalType} onChange={(e) => setFormData(ex => ({ ...ex, proposalType: e.target.value }))}>
+                                <select id="proposalType" name="proposalType" value={formData.proposalType} onChange={(e) => {
+                                    setFormData(ex => ({ ...ex, proposalType: e.target.value }));
+                                    setError(ex => ({ ...ex, proposalType: "" }));
+                                    }}>
                                     <option value={"Select"} >Select</option>
                                     <option value={"Formal"} >Formal</option>
                                     <option value={"In-Formal"} >In-Formal</option>
@@ -116,6 +140,8 @@ export function NewProposal({ setCreate, onAdd, onUpdate, edit, onEdit }) {
                                 <span><ion-icon name="chevron-down-outline"></ion-icon></span> */}
                             </div>
                         </div>
+                        {error.placeOfEvent && <span className="error">*{error.placeOfEvent}</span>}
+                        {error.proposalType && <span className="error">*{error.proposalType}</span>}
                         <div className="type-field">
                             {/* <div className="type">
                                 <label htmlFor="eventType">Event Type</label>
@@ -124,7 +150,10 @@ export function NewProposal({ setCreate, onAdd, onUpdate, edit, onEdit }) {
                             </div> */}
                             <div className="type">
                                 <label htmlFor="eventType">Event Type</label>
-                                <select id="eventType" name="eventType" value={formData.eventType} onChange={(e) => setFormData(ex => ({ ...ex, eventType: e.target.value }))}>
+                                <select id="eventType" name="eventType" value={formData.eventType} onChange={(e) => {
+                                    setFormData(ex => ({ ...ex, eventType: e.target.value }));
+                                    setError(ex => ({ ...ex, eventType: "" }));
+                                    }}>
                                     <option value={"Select"} >Select</option>
                                     <option value={"Wedding"} >Wedding</option>
                                     <option value={"Birthday"} >Birthday</option>
@@ -139,6 +168,7 @@ export function NewProposal({ setCreate, onAdd, onUpdate, edit, onEdit }) {
                                 <input type="number" id="budjet" name="budget" value={formData.budget} placeholder="000000" required onChange={(e) => setFormData(ex => ({ ...ex, budget: e.target.value }))} />
                             </div>
                         </div>
+                        {error.eventType && <span className="error">*{error.eventType}</span>}
                         <div className="type-field">
                             <div className="type">
                                 <label htmlFor="from">From</label>

@@ -8,7 +8,8 @@ const mongoClient = new MongoClient(process.env.DB_URL);
 const updateDpUser = async (req, res) => {
     try {
         let user = await User.findByIdAndUpdate(req.params.id, { profilePic: req.file.filename }, { new: true });
-        res.status(201).json({ status: "Success", user });
+        const { name, email, contact, isUser, selected, _id, profilePic } = user;
+        res.status(201).json({ status: "Success", user : { name, email, contact, isUser, selected, _id, profilePic } });
     } catch (err) {
         res.status(400).json({ status: "Failed", message: err.message });
     }
@@ -38,7 +39,8 @@ const deleteDpUser = async (req, res, next) => {
 const updateDpVendor = async (req, res) => {
     try {
         let user = await Vendor.findByIdAndUpdate(req.params.id, { profilePic: req.file.filename }, { new: true });
-        res.status(201).json({ status: "Success", user });
+        const { name, email, contact, isVendor, _id, profilePic } = user;
+        res.status(201).json({ status: "Success", user : { name, email, contact, isVendor, _id, profilePic } });
     } catch (err) {
         res.status(400).json({ status: "Failed", message: err.message });
     }

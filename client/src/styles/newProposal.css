@@ -17,6 +17,11 @@
     position: relative;
 }
 
+.proposal-form-container form .error {
+    font-size: 14px;
+    color: red;
+}
+
 .proposal-form-container form .section-container {
     display: flex;
 }

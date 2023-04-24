@@ -7,6 +7,7 @@ import "./styles/updateDp.css";
 import "./styles/vendorProposal.css";
 import "./styles/eachProposal.css";
 import "./styles/newProposal.css";
+import "./styles/eachProposal.css"
 import { AppRouter } from './routers/AppRouter';
 
 const App = () => {

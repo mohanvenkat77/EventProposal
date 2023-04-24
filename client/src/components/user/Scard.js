@@ -12,7 +12,7 @@ const Scard = ({ items }) => {
   const dispatch = useDispatch();
   const [sitem, setsitems] = useState([]);
   const [del, setdel] = useState();
-
+  const [confirmDelete, setConfirmDelete] = useState(false);
   useEffect(() => {
     axios
       .get(`${BASE_URL}/proposal/${items}`)
@@ -52,9 +52,20 @@ const Scard = ({ items }) => {
               price={item?.budget}
               locatioin={item?.placeOfEvent}
             />
-            <div className="del-icon" onClick={() => delteselect(item?._id,item?.eventName)}>
+            <div className="del-icon" onClick={()=>setConfirmDelete(true)}>
               <ion-icon name="trash-outline"></ion-icon>
             </div>
+            {confirmDelete && <div className="delete-confirmation" >
+                        <p>Are you sure!<br /> Do you want to delete?</p>
+                        <div className="btns">
+                            <button onClick={() => {
+                               delteselect(item?._id,item?.eventName)
+                            }}>YES</button>
+                            <button onClick={() => {
+                                setConfirmDelete(false)
+                            }}>NO</button>
+                        </div>
+                    </div>}
           </div>
         );
       })}

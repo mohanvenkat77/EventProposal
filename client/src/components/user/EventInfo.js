@@ -62,7 +62,7 @@ const EventInfo = () => {
           <div className="col1">
             <div className="event-data">
               {" "}
-              <span className="col1-proposals">Proposals</span>{" "}
+              <span className="col1-proposals"><button className=" proposal-btn" onClick={()=> navigate(-1)}><span className="proposal-text">Proposals</span></button></span>{" "}
               <span className="col1-icon">{"<"}</span>{" "}
               <span className="col1-contract">{vendor?.name}</span>
             </div>

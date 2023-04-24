@@ -54,9 +54,9 @@ const userLogin = async (req, res) => {
 
         if (user) {
             if (await bcrypt.compare(password, user.password)) {
-                const { name, email, contact, isUser, selected, _id } = user;
+                const { name, email, contact, isUser, selected, _id, profilePic } = user;
                 let jwtToken = await jwt.sign({ name, email, contact, isUser, selected, _id }, process.env.SECRET);
-                res.status(200).json({ status: "Success", token: "JWT " + jwtToken, user });
+                res.status(200).json({ status: "Success", token: "JWT " + jwtToken, user : { name, email, contact, isUser, selected, _id, profilePic }});
             } else {
                 res.status(401).json({ status: "Failed", field: "password", message: "Password not match!!" });
             }
@@ -110,9 +110,9 @@ const vendorLogin = async (req, res, next) => {
         let user = await Vendor.findOne({ email });
         if (user) {
             if (await bcrypt.compare(password, user.password)) {
-                const { name, email, contact, isVendor, _id } = user;
+                const { name, email, contact, isVendor, _id, profilePic } = user;
                 let jwtToken = await jwt.sign({ name, email, contact, isVendor, _id }, process.env.SECRET);
-                res.status(200).json({ status: "Success", token: "JWT " + jwtToken, user });
+                res.status(200).json({ status: "Success", token: "JWT " + jwtToken, user : { name, email, contact, isVendor, _id, profilePic } });
             } else {
                 res.status(401).json({ status: "Failed", field: "password", message: "Password not match!!" });
             }

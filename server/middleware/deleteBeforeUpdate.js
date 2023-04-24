@@ -5,7 +5,7 @@ const mongoClient = new MongoClient(process.env.DB_URL);
 
 const deleteBeforeUpdate = async (req, res, next) => {
     try {
-        if(!req.files) return next();
+        if(!req.body.images || !req.files) return next();
         await mongoClient.connect();
         const db = mongoClient.db(process.env.DB_NAME);
         const filesSchema = db.collection(process.env.DB_IMAGE_COLLECTION + ".files");

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import BASE_URL, { editProposal_api, newProposal_api } from "../../utills/api-utill";
 import { useOutletContext } from "react-router-dom";
-
+import { toast } from "react-toastify";
 export function NewProposal({ setCreate, onAdd, onUpdate, edit, onEdit }) {
 
     const [formData, setFormData] = useState({
@@ -42,6 +42,10 @@ export function NewProposal({ setCreate, onAdd, onUpdate, edit, onEdit }) {
             newProposal_api(result)
                 .then(res => {
                     if (res.status === "Success") {
+                       toast.success(`${formData.eventName} has been created`,{
+                            position:"bottom-right"
+                        }) 
+            
                         onAdd(res.proposal);
                         setCreate(false);
                         setBoo(true);
@@ -55,6 +59,10 @@ export function NewProposal({ setCreate, onAdd, onUpdate, edit, onEdit }) {
             editProposal_api(result, edit._id)
                 .then(res => {
                     if (res.status === "Success") {
+                     
+                            toast.info(`${formData.eventName} has been edited`,{
+                                 position:"bottom-right"
+                             }) 
                         onUpdate(res.proposal);
                         onEdit(null);
                         setCreate(false);

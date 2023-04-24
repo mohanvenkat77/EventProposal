@@ -6,7 +6,7 @@ import Events from "./Events";
 import Food from "./Food";
 import Venue from "./Venue";
 import axios from "axios";
-
+import { toast } from "react-toastify";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -26,6 +26,7 @@ const EventInfo = () => {
       .get(`${BASE_URL}/proposal/${params.id}`)
       .then((res) => {
         setitems(res.data.proposal);
+        console.log("proposal",res.data.proposal);
 
         singleVendor_api(res.data.proposal.vendorId)
           .then((res) => {
@@ -42,6 +43,12 @@ const EventInfo = () => {
         selected: items,
       })
       .then((res) => {
+        console.log("res",res);
+        if(res.status===200){
+           toast.info(`${items.eventName} is added to proposals`,{
+            position:"bottom-right"
+        }) 
+        }
         dispatch(selecteditems(res.data.data.selected));
       })
       .catch((err) => alert(err.message));

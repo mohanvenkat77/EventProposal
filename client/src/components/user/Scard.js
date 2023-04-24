@@ -6,6 +6,7 @@ import BASE_URL from "../../utills/api-utill";
 import { getCurrentUser, setCurrentUser } from "../../utills/storage-utills";
 import { deleteditems } from "../../redux/selectedstore";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 const Scard = ({ items }) => {
   const { list } = useSelector((state) => state.selected);
   const dispatch = useDispatch();
@@ -21,12 +22,18 @@ const Scard = ({ items }) => {
       .catch((err) => alert(err.message));
   }, []);
 
-  const delteselect = (id) => {
+  const delteselect = (id,name) => {
     axios
       .put(`${BASE_URL}/delete-list/${getCurrentUser()._id}`, {
         selected: id,
       })
       .then((res) => {
+        if(res.status === 200){
+         toast.info(`${name} removed from selected`,{
+            position:"bottom-right"
+        }) 
+       
+        }
         dispatch(deleteditems(res.data.data.selected));
       })
       .catch((err) => alert(err.message));
@@ -45,7 +52,7 @@ const Scard = ({ items }) => {
               price={item?.budget}
               locatioin={item?.placeOfEvent}
             />
-            <div className="del-icon" onClick={() => delteselect(item?._id)}>
+            <div className="del-icon" onClick={() => delteselect(item?._id,item?.eventName)}>
               <ion-icon name="trash-outline"></ion-icon>
             </div>
           </div>

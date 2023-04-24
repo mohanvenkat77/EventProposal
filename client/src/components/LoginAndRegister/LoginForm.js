@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getCurrentUser, getToken, setCurrentUser, setToken } from "../../utills/storage-utills";
 import { useNavigate } from "react-router-dom";
 import { loginToAccount } from "../../utills/api-utill";
-
+import { toast } from "react-toastify";
 export default function LoginForm({setIsLog, setIsreset}) {
     const navigate = useNavigate();
     const [option, setOption] = useState(true);
@@ -31,15 +31,20 @@ export default function LoginForm({setIsLog, setIsreset}) {
         setBoo(false);
         loginToAccount(loginUser, option? "vendor" : "user")
         .then(res => {
+            setToken(res.token);
+            setCurrentUser(res.user);
+            setLoginUser({
+                email: "",
+                password: ""
+            });
+            setBoo(true);
             if(res.status === "Success") {
-                setToken(res.token);
-         
-                setCurrentUser(res.user);
-                setLoginUser({
-                    email: "",
-                    password: ""
-                });
-                setBoo(true);
+                if(option) toast.success(`${getCurrentUser().name} as vendor Logged in successfully`,{
+                    position:"bottom-right"
+                }) 
+                else toast.success(` ${getCurrentUser().name} as User logged in successfully`,{
+                    position:"bottom-right"
+                })
                 if(option) navigate("/vendor/proposals");
                 else navigate("/user/proposals");
             }

@@ -16,13 +16,17 @@ import "../styles/newProposal.css";
 import "../styles/user.css";
 import "../styles/venue.css";
 import "../styles/HeaderCard.css";
+
 import EventInfo from "../components/user/EventInfo";
 import Home from "../components/LoginAndRegister/Home";
+import {ToastContainer} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 
 export function AppRouter() {
   return (
     <>
       <BrowserRouter>
+      <ToastContainer/>
         <Routes>
           <Route path="*" element={<h1>404 PAGE NOT FOUND!</h1>} />
           <Route path="/" element={<Home />} />

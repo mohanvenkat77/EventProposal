@@ -10,13 +10,17 @@ const vendorSchema = new mongoose.Schema(
             type: String,
             required: true,
             unique: true,
-            lowercase : true
+            lowercase: true
         },
         contact: {
             type: String,
             required: true,
         },
         password: {
+            type: String,
+            required: true,
+        },
+        secret: {
             type: String,
             required: true,
         },

@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
+import PasswordResetForm from "./PasswordResetForm";
 
 export default function Home() {
     const [isLog, setIsLog] = useState(true);
+    const [isreset, setIsreset] = useState(true);
     return <>
         <div className="home-container">
             <h1>LOGO</h1>
@@ -16,7 +18,9 @@ export default function Home() {
                 <section className="form-section">
                     {
                         isLog ?
-                            <LoginForm setIsLog={setIsLog} /> :
+                            (isreset ?
+                                <LoginForm setIsLog={setIsLog} setIsreset={setIsreset} /> :
+                                <PasswordResetForm setIsreset={setIsreset} />) :
                             <RegisterForm setIsLog={setIsLog} />
                     }
                 </section>

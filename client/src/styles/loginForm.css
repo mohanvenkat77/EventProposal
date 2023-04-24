@@ -42,7 +42,7 @@
 
 .signin-form-container form .field-container {
     width: 100%;
-    height: 44px;
+    height: 40px;
 }
 
 .signin-form-container form .field-container.margin {
@@ -72,6 +72,7 @@
     text-align: end;
     color: #04425A;
     margin-top: 10px;
+    cursor: pointer;
 }
 
 .signin-form-container form .btn-link-container {

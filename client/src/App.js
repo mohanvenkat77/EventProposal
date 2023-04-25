@@ -9,10 +9,13 @@ import "./styles/eachProposal.css";
 import "./styles/newProposal.css";
 import "./styles/eachProposal.css"
 import { AppRouter } from './routers/AppRouter';
+import UserContext from './contexts/UserContext';
 
 const App = () => {
   return <>
-  <AppRouter />
+    <UserContext>
+      <AppRouter />
+    </UserContext>
   </>
 }
 

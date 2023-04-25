@@ -2,8 +2,8 @@ import axios from "axios";
 import { getToken } from "./storage-utills";
 
 
-export const BASE_URL = "https://eventproposal-server.onrender.com";
-
+// export const BASE_URL = "https://eventproposal-server.onrender.com";
+export const BASE_URL = "http://localhost:5000";
 
 //TO GET ALL PROPOSALS
 export function allProposal_api() {
@@ -11,6 +11,14 @@ export function allProposal_api() {
         .then(res => res)
         .catch(err => alert("FROM SERVER : " + err.message));
 }
+
+//TO GET ALL SELECTED PROPOSALS
+export function allSelectedProposal_api(id) {
+    return fetch(`${BASE_URL}/proposal/selected/${id}`)
+        .then(res => res.json())
+        .catch(err => alert("FROM SERVER : " + err.message));
+}
+
 // single vendor
 export function singleVendor_api(id) {
     return axios.get(`${BASE_URL}/vendor/${id}`)
@@ -22,9 +30,9 @@ export function singleVendor_api(id) {
 export function allProposalByVendor_api(id) {
 
     return fetch(`${BASE_URL}/proposal/vendor/${id}`, {
-        method : "GET",
-        headers : {
-            "Authorization" : getToken()
+        method: "GET",
+        headers: {
+            "Authorization": getToken()
         }
     })
         .then(res => res.json())
@@ -36,8 +44,8 @@ export function newProposal_api(data) {
 
     return fetch(`${BASE_URL}/proposal`, {
         method: "POST",
-        headers : {
-            "Authorization" : getToken()
+        headers: {
+            "Authorization": getToken()
         },
         body: data
     })
@@ -50,8 +58,8 @@ export function editProposal_api(data, id) {
 
     return fetch(`${BASE_URL}/proposal/${id}`, {
         method: "PUT",
-        headers : {
-            "Authorization" : getToken()
+        headers: {
+            "Authorization": getToken()
         },
         body: data
     })
@@ -62,9 +70,10 @@ export function editProposal_api(data, id) {
 //TO DELETE THE PROPOSAL
 export function deleteProposalByVendor_api(id) {
 
-    return fetch(`${BASE_URL}/proposal/${id}`, { 
+    return fetch(`${BASE_URL}/proposal/${id}`, {
         method: "DELETE",
-    headers : {"Authorization" : getToken()} })
+        headers: { "Authorization": getToken() }
+    })
         .then(res => res.json())
         .catch(err => alert("FROM SERVER : " + err.message));
 }

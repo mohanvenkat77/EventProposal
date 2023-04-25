@@ -34,6 +34,7 @@ const Scard = ({ items }) => {
         }) 
        
         }
+        setCurrentUser(res.data.data)
         dispatch(deleteditems(res.data.data.selected));
       })
       .catch((err) => alert(err.message));

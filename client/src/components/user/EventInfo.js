@@ -37,6 +37,8 @@ const EventInfo = () => {
       .catch((err) => alert(err.message));
   }, []);
 
+
+
   const selectbtn = () => {
     axios
       .put(`${BASE_URL}/update/${getCurrentUser()._id}`, {
@@ -49,6 +51,7 @@ const EventInfo = () => {
             position:"bottom-right"
         }) 
         }
+        setCurrentUser(res.data.data)
         dispatch(selecteditems(res.data.data.selected));
       })
       .catch((err) => alert(err.message));

@@ -7,7 +7,6 @@ const jwtAuthToken = require("../middleware/jwtAuthToken");
 
 const updatelist = async (req, res) => {
   let { id } = req.params;
-  const newL = [];
   try {
     let user = await User.findById(id);
 
@@ -15,8 +14,6 @@ const updatelist = async (req, res) => {
       return res
         .status(400)
         .json({ status: "Failed", message: "User not exits" });
-
-    const { selected } = user;
 
     // let newL=user.selected.filter((each)=>  each===req.body.selected._id )
     let updateuser = user;
@@ -27,11 +24,12 @@ const updatelist = async (req, res) => {
           $push: { selected: req.body.selected._id },
         },
         { new: true }
-      );
-    }
+        );
+      }
+      const { name, email, contact, isUser, selected, _id, profilePic } = updateuser;
     res
       .status(200)
-      .json({ status: "completed", message: "updated....", data: updateuser });
+      .json({ status: "completed", message: "updated....", data: { name, email, contact, isUser, selected, _id, profilePic } });
   } catch (error) {
     res.status(400).json({ status: "failed", message: error.message });
   }
@@ -39,7 +37,7 @@ const updatelist = async (req, res) => {
 
 const dellist = async (req, res) => {
   let { id } = req.params;
-  const newL = [];
+
   try {
     let user = await User.findById(id);
 
@@ -47,8 +45,6 @@ const dellist = async (req, res) => {
       return res
         .status(400)
         .json({ status: "Failed", message: "User not exits" });
-
-    const { selected } = user;
 
     let updateuser = user;
     if (user.selected.indexOf(req.body.selected) !== -1) {
@@ -60,9 +56,10 @@ const dellist = async (req, res) => {
         { new: true }
       );
     }
+    const { name, email, contact, isUser, selected, _id, profilePic } = updateuser;
     res
       .status(200)
-      .json({ status: "completed", message: "updated....", data: updateuser });
+      .json({ status: "completed", message: "updated....", data:{ name, email, contact, isUser, selected, _id, profilePic } });
   } catch (error) {
     res.status(400).json({ status: "failed", message: error.message });
   }

@@ -22,7 +22,6 @@ const getSelectedProposals = async (req, res) => {
         let proposals = []
         for(let i=0; i<user.selected.length; i++) {
             let proposal = await Proposal.findById(user.selected[i]);
-            console.log(proposal);
             if (proposal) proposals = [...proposals, proposal]
         }
         res.status(200).json({ status: "Success", proposals });

@@ -1,24 +1,23 @@
 import { createSlice, current } from "@reduxjs/toolkit";
+import { getCurrentUser } from "../utills/storage-utills";
 
 
 const initialState = {
-    list:[]
+    list:getCurrentUser().selected
 };
 
-const authSLice = createSlice({
+const Listslice = createSlice({
   name: "selectedlist",
   initialState,
   reducers: {
     selecteditems(state, action) {
-        state.list.push(...action.payload)
+        state.list=action.payload
     },
     deleteditems(state,action){
-
-      const newl=state.list.splice(1,action.payload)
       state.list=action.payload
     }
   },
 });
 
-export const { selecteditems,deleteditems } = authSLice.actions;
-export default authSLice.reducer;
+export const { selecteditems,deleteditems } = Listslice.actions;
+export default Listslice.reducer;

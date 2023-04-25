@@ -28,7 +28,7 @@ const Scard = ({ items }) => {
         selected: id,
       })
       .then((res) => {
-        if(res.status === 200){
+        if(res.data.data.status === "completed"){
          toast.info(`${name} removed from selected`,{
             position:"bottom-right"
         }) 

@@ -1,21 +1,30 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import CardList from "./CardList";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import BASE_URL from "../../utills/api-utill";
+import BASE_URL, { allSelectedProposal_api } from "../../utills/api-utill";
 import { getCurrentUser, getToken } from "../../utills/storage-utills";
 import Scard from "./Scard";
-import { useSelector } from "react-redux";
+import { UserSelectedProposal } from "../../contexts/UserContext";
 
 const User = () => {
-  const { list } = useSelector((state) => state.selected);
+
+  const {selectedList, onChangeList} = useContext(UserSelectedProposal);
 
   const navigate = useNavigate();
   const [items, setitems] = useState();
-  const [selectedList, setSelectedList] = useState([]);
 
   useEffect(() => {
     if (!getToken() || !getCurrentUser().isUser) return navigate("/");
+    
+    allSelectedProposal_api(getCurrentUser()._id)
+    .then(res => {
+      if(res.status === "Success") {
+        onChangeList(res.proposals);
+      } else alert(res.message);
+    })
+    .catch(err => alert(err.message));
+
     axios
       .get(`${BASE_URL}/proposal`)
       .then((res) => {
@@ -26,9 +35,7 @@ const User = () => {
       });
   }, []);
 
-  useEffect(() => {
-    setSelectedList(getCurrentUser().selected);
-  }, [list])
+
 
   return (
     <div>
@@ -44,7 +51,7 @@ const User = () => {
           <div className="slistmain">
             {selectedList.map((lis) => (
               <div className="slist">
-                <Scard items={lis} />
+                <Scard item={lis} />
               </div>
             ))}
           </div>

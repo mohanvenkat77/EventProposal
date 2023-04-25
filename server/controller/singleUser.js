@@ -17,6 +17,7 @@ const updatelist = async (req, res) => {
 
     // let newL=user.selected.filter((each)=>  each===req.body.selected._id )
     let updateuser = user;
+    let result = "updated";
     if (user.selected.indexOf(req.body.selected._id) === -1) {
       updateuser = await User.findByIdAndUpdate(
         { _id: id },
@@ -25,11 +26,11 @@ const updatelist = async (req, res) => {
         },
         { new: true }
         );
-      }
+      } else result = "notupdated";
       const { name, email, contact, isUser, selected, _id, profilePic } = updateuser;
     res
       .status(200)
-      .json({ status: "completed", message: "updated....", data: { name, email, contact, isUser, selected, _id, profilePic } });
+      .json({ status: "completed", message: result, data: { name, email, contact, isUser, selected, _id, profilePic } });
   } catch (error) {
     res.status(400).json({ status: "failed", message: error.message });
   }

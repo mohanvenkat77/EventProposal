@@ -1,6 +1,6 @@
 require("dotenv").config();
 const Proposal = require("../models/proposal");
-// const User = require("../Models/user");
+const User = require("../models/user");
 const { GridFSBucket, MongoClient } = require("mongodb");
 const mongoClient = new MongoClient(process.env.DB_URL);
 
@@ -9,6 +9,22 @@ const mongoClient = new MongoClient(process.env.DB_URL);
 const getAllProposals = async (req, res) => {
     try {
         let proposals = await Proposal.find();
+        res.status(200).json({ status: "Success", proposals });
+    } catch (err) {
+        res.status(400).json({ status: "Failed", message: err.message });
+    }
+}
+
+//TO GET SELECTED PROPOSALS
+const getSelectedProposals = async (req, res) => {
+    try {
+        let user = await User.findById(req.params.id);
+        let proposals = []
+        for(let i=0; i<user.selected.length; i++) {
+            let proposal = await Proposal.findById(user.selected[i]);
+            console.log(proposal);
+            if (proposal) proposals = [...proposals, proposal]
+        }
         res.status(200).json({ status: "Success", proposals });
     } catch (err) {
         res.status(400).json({ status: "Failed", message: err.message });
@@ -114,5 +130,5 @@ const deleteProposal = async (req, res) => {
 
 }
 
-module.exports = { getAllProposals, getVendorProposals, addNewProposal, editProposal, deleteProposal, renderImage, getSingleProposal };
+module.exports = { getAllProposals, getVendorProposals, addNewProposal, editProposal, deleteProposal, renderImage, getSingleProposal, getSelectedProposals };
 

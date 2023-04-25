@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Card1 from "./Card1";
 import Card2 from "./Card2";
 import Contacts from "./Contacts";
@@ -8,15 +8,13 @@ import Venue from "./Venue";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate, useParams } from "react-router-dom";
-
-import { useDispatch, useSelector } from "react-redux";
-
 import BASE_URL, { singleVendor_api } from "../../utills/api-utill";
 import { getCurrentUser, setCurrentUser } from "../../utills/storage-utills";
-import { selecteditems } from "../../redux/selectedstore";
+import { UserSelectedProposal } from "../../contexts/UserContext";
 const EventInfo = () => {
-  const { list } = useSelector((state) => state.selected);
-  const dispatch = useDispatch();
+  
+  const {onAddList} = useContext(UserSelectedProposal);
+
   const navigate = useNavigate();
   const params = useParams();
   const [items, setitems] = useState();
@@ -45,17 +43,18 @@ const EventInfo = () => {
         selected: items,
       })
       .then((res) => {
-        console.log("res",res);
-        if(res.status===200){
+        if(res.data.status === "completed"){
            toast.info(`${items.eventName} is added to proposals`,{
             position:"bottom-right"
         }) 
-        }
         setCurrentUser(res.data.data)
-        dispatch(selecteditems(res.data.data.selected));
+        if(res.data.message === "updated") onAddList(items);
+        navigate("/user/proposals");
+        } else alert(res.data.message);
+        
       })
       .catch((err) => alert(err.message));
-    navigate("/user/proposals");
+    
   };
 
   return (

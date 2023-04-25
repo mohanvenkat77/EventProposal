@@ -3,7 +3,7 @@ import { getCurrentUser } from "../utills/storage-utills";
 
 
 const initialState = {
-    list:getCurrentUser().selected
+    list:[]
 };
 
 const Listslice = createSlice({

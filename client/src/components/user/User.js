@@ -12,6 +12,7 @@ const User = () => {
 
   const navigate = useNavigate();
   const [items, setitems] = useState();
+  const [selectedList, setSelectedList] = useState([]);
 
   useEffect(() => {
     if (!getToken() || !getCurrentUser().isUser) return navigate("/");
@@ -25,19 +26,23 @@ const User = () => {
       });
   }, []);
 
+  useEffect(() => {
+    setSelectedList(getCurrentUser().selected);
+  }, [list])
+
   return (
     <div>
       <div>
         <img className="headerimg" src={"/party2x.jpg"} alt="name" />
       </div>
-      {list.length > 0 ? (
+      {selectedList.length > 0 ? (
         <>
           <div className="selcteddiv">
             {" "}
             <span className="selectedtext">Selected</span>
           </div>
           <div className="slistmain">
-            {list.map((lis) => (
+            {selectedList.map((lis) => (
               <div className="slist">
                 <Scard items={lis} />
               </div>

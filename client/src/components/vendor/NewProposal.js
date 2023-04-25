@@ -121,8 +121,6 @@ export function NewProposal({ setCreate, onAdd, onUpdate, edit, onEdit }) {
                                     <option value={"Hydrabad"} >Hydrabad</option>
                                     <option value={"Kerala"} >Kerala</option>
                                 </select>
-                                {/* <input type="text" id="place" name="place" placeholder="Select" required />
-                                <span><ion-icon name="chevron-down-outline"></ion-icon></span> */}
                             </div>
                             <div className="type">
                                 <label htmlFor="proposalType">Proposal Type</label>
@@ -136,18 +134,11 @@ export function NewProposal({ setCreate, onAdd, onUpdate, edit, onEdit }) {
                                     <option value={"Internal"} >Internal</option>
                                     <option value={"External"} >External</option>
                                 </select>
-                                {/* <input type="text" id="proposalType" name="proposalType" placeholder="Select" required />
-                                <span><ion-icon name="chevron-down-outline"></ion-icon></span> */}
                             </div>
                         </div>
                         {error.placeOfEvent && <span className="error">*{error.placeOfEvent}</span>}
                         {error.proposalType && <span className="error">*{error.proposalType}</span>}
                         <div className="type-field">
-                            {/* <div className="type">
-                                <label htmlFor="eventType">Event Type</label>
-                                <input type="text" id="eventType" name="eventType" placeholder="Select" required />
-                                <span><ion-icon name="chevron-down-outline"></ion-icon></span>
-                            </div> */}
                             <div className="type">
                                 <label htmlFor="eventType">Event Type</label>
                                 <select id="eventType" name="eventType" value={formData.eventType} onChange={(e) => {

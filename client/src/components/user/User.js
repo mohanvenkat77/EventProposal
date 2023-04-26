@@ -13,7 +13,7 @@ const User = () => {
 
   const navigate = useNavigate();
   const [items, setitems] = useState();
-
+console.log(items);
   useEffect(() => {
     if (!getToken() || !getCurrentUser().isUser) return navigate("/");
     

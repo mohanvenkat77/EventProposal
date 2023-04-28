@@ -20,6 +20,7 @@ const EventInfo = () => {
   const [items, setitems] = useState();
   const [vendor, setvendor] = useState();
   useEffect(() => {
+    if (!getToken() || !getCurrentUser().isUser) return navigate("/");
     axios
       .get(`${BASE_URL}/proposal/${params.id}`)
       .then((res) => {

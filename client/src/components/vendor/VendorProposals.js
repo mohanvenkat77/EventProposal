@@ -64,7 +64,7 @@ export function VendorProposals() {
 
   function searchBar(val) {
     if (val) {
-      const resArr = proposals.filter((each) => {
+      const resArr = original.filter((each) => {
         if (each.eventName.match(new RegExp(val, "i"))) return true;
         else return false;
       });

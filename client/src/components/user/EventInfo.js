@@ -9,7 +9,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate, useParams } from "react-router-dom";
 import BASE_URL, { singleVendor_api } from "../../utills/api-utill";
-import { getCurrentUser, setCurrentUser } from "../../utills/storage-utills";
+import { getCurrentUser, getToken, setCurrentUser } from "../../utills/storage-utills";
 import { UserSelectedProposal } from "../../contexts/UserContext";
 const EventInfo = () => {
   
@@ -20,6 +20,7 @@ const EventInfo = () => {
   const [items, setitems] = useState();
   const [vendor, setvendor] = useState();
   useEffect(() => {
+    if (!getToken() || !getCurrentUser().isUser) return navigate("/");
     axios
       .get(`${BASE_URL}/proposal/${params.id}`)
       .then((res) => {

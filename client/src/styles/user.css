@@ -182,3 +182,15 @@ margin-right: 50px;
   justify-content: center;
   align-items: center;
 }
+
+.resultText {
+  color: #AAAAAA;
+
+}
+.resulttext-container{
+display: flex;
+justify-content: center;
+width: 100%;
+height: 50px;
+align-items: center;
+}

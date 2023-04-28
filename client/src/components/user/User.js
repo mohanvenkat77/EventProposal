@@ -31,7 +31,7 @@ const User = () => {
     ["75001-100000"]: false,
     ["> 100000"]: false,
   });
-console.log(items);
+  const [proposalLoader,setproposalloader]=useState(true)
   useEffect(() => {
     if (!getToken() || !getCurrentUser().isUser) return navigate("/");
     
@@ -48,6 +48,7 @@ console.log(items);
       .then((res) => {
         setitems(res.data.proposals);
         setOriginal(res.data.proposals)
+        setproposalloader(false)
       })
       .catch((err) => {
         alert(err.message);
@@ -64,7 +65,9 @@ console.log(items);
     }
   }
 
-  return (
+  return <>
+    
+{ proposalLoader? <div className="proloader-container"><div className="proLoader"></div></div> :
     <div>
       <div>
         <img className="headerimg" src={"/party2x.jpg"} alt="name" />
@@ -179,7 +182,8 @@ console.log(items);
       {/* </div> */}
       </div>
     </div>
-  );
+}
+    </>
 };
 
 export default User;

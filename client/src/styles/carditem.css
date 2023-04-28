@@ -57,3 +57,6 @@ color: #575A5D;
 opacity: 1;
 margin-left: 10px;
 }
+.carditemss{
+    display: flex;
+}

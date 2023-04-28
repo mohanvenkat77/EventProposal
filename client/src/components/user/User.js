@@ -6,13 +6,14 @@ import BASE_URL, { allSelectedProposal_api } from "../../utills/api-utill";
 import { getCurrentUser, getToken } from "../../utills/storage-utills";
 import Scard from "./Scard";
 import { UserSelectedProposal } from "../../contexts/UserContext";
-
+import PaginationCard from "./PaginationCard";
 const User = () => {
 
   const {selectedList, onChangeList} = useContext(UserSelectedProposal);
 
   const navigate = useNavigate();
   const [items, setitems] = useState();
+  const [pageitems,setPageitems]=useState()
 console.log(items);
   useEffect(() => {
     if (!getToken() || !getCurrentUser().isUser) return navigate("/");
@@ -60,8 +61,10 @@ console.log(items);
       <div className="proposals">
         <p>Proposals</p>
       </div>
-      <div className="eventlists">
-        {items ? <CardList items={items} /> : null}
+      {/* <div className="eventlists"> */}
+      <div className="pagination">
+        <PaginationCard items={items} pageitemss={setPageitems}/>
+      {/* </div> */}
       </div>
     </div>
   );

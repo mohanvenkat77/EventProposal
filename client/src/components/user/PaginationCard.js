@@ -17,9 +17,7 @@ const PaginationCard = ({ items, pageitems }) => {
   const cardsPerPage = 8;
   const indexOfLastCard = apage * cardsPerPage;
   const indexOfFirstCard = indexOfLastCard - cardsPerPage;
-
   const currentCards = items?.slice(indexOfFirstCard, indexOfLastCard);
- console.log("length :",items.length);
   return (
 
     <>
